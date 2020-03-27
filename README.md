@@ -1,6 +1,6 @@
 ![](https://github.com/vincentzhangz/MaVerickCount/workflows/Android%20CI/badge.svg)
 
-# MacVerick Count
+# MaVerick Count
 
 ## Authors
 
