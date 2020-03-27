@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "177854695458",
+    "firebase_url": "https://maverick-count.firebaseio.com",
+    "project_id": "maverick-count",
+    "storage_bucket": "maverick-count.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:177854695458:android:4c871043dd99ce547e227b",
+        "android_client_info": {
+          "package_name": "com.vincentzhangz.maverickcount"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "177854695458-7pqh9rq2ngb7a2tnor8bj844g1p6vl7k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vincentzhangz.maverickcount",
+            "certificate_hash": "e2e113339c71a1b24461077186552ba9bbccfe37"
+          }
+        },
+        {
+          "client_id": "177854695458-g2ik3vprqp6okqvvph2fpisatkl4uq82.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVtJK6P9sJ_GHiX8yVAaZgFOQwLbrE048"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "177854695458-g2ik3vprqp6okqvvph2fpisatkl4uq82.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
