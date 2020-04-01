@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "177854695458-20umh6dhkj53irusajia5pf7as7ng3v7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vincentzhangz.maverickcount",
+            "certificate_hash": "f3260bb5c9b06dc7846cbdee4949382fdd5e788b"
+          }
+        },
+        {
           "client_id": "177854695458-7pqh9rq2ngb7a2tnor8bj844g1p6vl7k.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
