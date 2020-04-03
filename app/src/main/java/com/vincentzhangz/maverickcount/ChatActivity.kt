@@ -12,6 +12,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.vincentzhangz.maverickcount.models.MessageHead
 import com.vincentzhangz.maverickcount.models.MessageHeader
+import com.vincentzhangz.maverickcount.services.*
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_chat.*
@@ -20,8 +21,7 @@ import kotlinx.android.synthetic.main.activity_chat.*
 class ChatActivity : AppCompatActivity() {
 
     val database = FirebaseDatabase.getInstance()
-
-//    val sharedPreferences = getSharedPreferences("user",Context.MODE_PRIVATE)
+    var userId="1"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +35,15 @@ class ChatActivity : AppCompatActivity() {
 
         setSP()
 
+//        TokenHelper.getCurrToken()
+
         fetchMessage()
+
     }
 
     private fun setSP() {
-//        sharedPreferences.edit().putString("userId","1").commit()
+        val sharedPreferences = getSharedPreferences("user",Context.MODE_PRIVATE)
+        sharedPreferences.edit().putString("userId",userId).apply()
     }
 
     private fun fetchMessage() {
@@ -52,9 +56,12 @@ class ChatActivity : AppCompatActivity() {
             override fun onDataChange(ds: DataSnapshot) {
                 val adapter=GroupAdapter<ViewHolder>()
                 ds.children.forEach{
-//                    Log.d("msg",it.toString())
                     val messages=it.getValue(MessageHead::class .java)
-                    adapter.add(MessageHeader(messages!!))
+                    val data=messages as MessageHead
+                    if(data.user1==userId||data.user2==userId){
+//                        Log.d("msg",it.toString())
+                        adapter.add(MessageHeader(messages!!))
+                    }
                 }
                 
                 adapter.setOnItemClickListener { item, view ->

@@ -1,9 +1,8 @@
 package com.vincentzhangz.maverickcount
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -21,6 +20,7 @@ class ChatDetailActivity : AppCompatActivity() {
 
     val database = FirebaseDatabase.getInstance()
     var msgId=""
+    var userId=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,16 +29,16 @@ class ChatDetailActivity : AppCompatActivity() {
         msgId=intent.getStringExtra("user")
         supportActionBar?.title=msgId
 
-//        val adapter=GroupAdapter<ViewHolder>()
-//        adapter.add(ChatDetailLeft("a"))
-//        adapter.add(ChatDetailRight("b"))
-//        adapter.add(ChatDetailLeft("c"))
-//        recyclerview_chat_detail.adapter=adapter
-
         recyclerview_chat_detail.layoutManager=LinearLayoutManager(this)
 
-        fetchMessage()
+        getUserData()
 
+        fetchMessage()
+    }
+
+    private fun getUserData() {
+        val sharedPreferences= getSharedPreferences("user",Context.MODE_PRIVATE)
+        userId=sharedPreferences.getString("userId","").toString()
     }
 
     private fun fetchMessage() {
@@ -51,9 +51,9 @@ class ChatDetailActivity : AppCompatActivity() {
             override fun onDataChange(ds: DataSnapshot) {
                 val adapter=GroupAdapter<ViewHolder>()
                 ds.children.forEach{
-                    Log.d("msg",it.toString())
+//                    Log.d("msg",it.toString())
                     val messages=it.getValue(MessageDetail::class.java)
-                    if(messages!!.user=="1"){
+                    if(messages!!.user==userId){
                         adapter.add(ChatDetailRight(messages!!.msg))
                     }
                     else{
@@ -70,7 +70,8 @@ class ChatDetailActivity : AppCompatActivity() {
     }
 
     private fun sendMessage() {
-        var message=txv_message.text
-
+        var message=et_msg.text.toString()
+        val db=database.getReference("chat-detail").child("\""+msgId+"\"").push().setValue(MessageDetail(userId,message,System.currentTimeMillis()))
+        et_msg.setText("")
     }
 }
