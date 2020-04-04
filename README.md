@@ -4,4 +4,5 @@
 
 ## Authors
 
+* **Vincent** - [vincentzhangz](https://github.com/vincentzhangz)
 * **Malvin Wikarsa** - [octa8888](https://github.com/octa8888)
