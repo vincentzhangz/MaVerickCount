@@ -2,10 +2,16 @@ package com.vincentzhangz.maverickcount.models
 
 import java.time.LocalDate
 
-data class Debt(var lenderId:Int, var borrowerId:Int, var ammount:Int, var deadline:LocalDate, var desciption:String)
+data class Debt(
+    var lenderId: Int,
+    var borrowerId: Int,
+    var amount: Int,
+    var deadline: LocalDate,
+    var description: String
+)
 
-object LendBrowse{
-    val debt= listOf<Debt>(
+object LendBrowse {
+    val debt = listOf<Debt>(
         Debt(
             1,
             1,

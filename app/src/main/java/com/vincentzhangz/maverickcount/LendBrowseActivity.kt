@@ -1,7 +1,7 @@
 package com.vincentzhangz.maverickcount
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vincentzhangz.maverickcount.adapter.LendBrowseAdapter
 import com.vincentzhangz.maverickcount.models.LendBrowse
@@ -13,15 +13,15 @@ class LendBrowseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lend_browse)
 
-        val layoutManager= LinearLayoutManager(this)
-        layoutManager.orientation=LinearLayoutManager.VERTICAL
-        lendRecyclerView.layoutManager=layoutManager
+        val layoutManager = LinearLayoutManager(this)
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        lendRecyclerView.layoutManager = layoutManager
 
-        val lendBrowseAdapter=
+        val lendBrowseAdapter =
             LendBrowseAdapter(
                 this,
                 LendBrowse.debt
             )
-        lendRecyclerView.adapter=lendBrowseAdapter
+        lendRecyclerView.adapter = lendBrowseAdapter
     }
 }

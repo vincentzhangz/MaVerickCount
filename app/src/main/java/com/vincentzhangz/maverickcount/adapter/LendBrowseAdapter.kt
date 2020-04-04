@@ -23,7 +23,7 @@ class LendBrowseAdapter(val context:Context, val debts:List<Debt>):RecyclerView.
         }
 
         fun setData(debt: Debt?){
-            lendView.txv_amount.text=debt!!.ammount.toString()
+            lendView.txv_amount.text=debt!!.amount.toString()
             this.currDebt=debt
         }
     }

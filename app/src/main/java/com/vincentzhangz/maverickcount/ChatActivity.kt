@@ -3,7 +3,6 @@ package com.vincentzhangz.maverickcount
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.DataSnapshot
@@ -12,7 +11,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.vincentzhangz.maverickcount.models.MessageHead
 import com.vincentzhangz.maverickcount.models.MessageHeader
-import com.vincentzhangz.maverickcount.services.*
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_chat.*
@@ -20,58 +18,54 @@ import kotlinx.android.synthetic.main.activity_chat.*
 
 class ChatActivity : AppCompatActivity() {
 
-    val database = FirebaseDatabase.getInstance()
-    var userId="1"
+    private val database = FirebaseDatabase.getInstance()
+    private lateinit var userId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
+        getUserId()
+        supportActionBar?.title = "Message"
+        val adapter = GroupAdapter<ViewHolder>()
 
-        supportActionBar?.title="Message"
-        val adapter=GroupAdapter<ViewHolder>()
-
-        recyclerview_message.adapter=adapter
-        recyclerview_message.layoutManager=LinearLayoutManager(this)
-
-        setSP()
+        recyclerview_message.adapter = adapter
+        recyclerview_message.layoutManager = LinearLayoutManager(this)
 
 //        TokenHelper.getCurrToken()
-
         fetchMessage()
-
     }
 
-    private fun setSP() {
-        val sharedPreferences = getSharedPreferences("user",Context.MODE_PRIVATE)
-        sharedPreferences.edit().putString("userId",userId).apply()
+    private fun getUserId() {
+        val sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
+        userId = sharedPreferences.getString("userId", "").toString()
     }
 
     private fun fetchMessage() {
-        val db=database.getReference("chats")
-        db.addValueEventListener(object :ValueEventListener{
+        val db = database.getReference("chats")
+        db.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 TODO("Not yet implemented")
             }
 
             override fun onDataChange(ds: DataSnapshot) {
-                val adapter=GroupAdapter<ViewHolder>()
-                ds.children.forEach{
-                    val messages=it.getValue(MessageHead::class .java)
-                    val data=messages as MessageHead
-                    if(data.user1==userId||data.user2==userId){
+                val adapter = GroupAdapter<ViewHolder>()
+                ds.children.forEach {
+                    val messages = it.getValue(MessageHead::class.java)
+                    val data = messages as MessageHead
+                    if (data.user1 == userId || data.user2 == userId) {
 //                        Log.d("msg",it.toString())
-                        adapter.add(MessageHeader(messages!!))
+                        adapter.add(MessageHeader(messages))
                     }
                 }
-                
+
                 adapter.setOnItemClickListener { item, view ->
-                    val msgData=item as MessageHeader
-                    val intent=Intent(view.context,ChatDetailActivity::class.java)
-                    intent.putExtra("user",msgData.msg.msg.toString())
+                    val msgData = item as MessageHeader
+                    val intent = Intent(view.context, ChatDetailActivity::class.java)
+                    intent.putExtra("msgId", msgData.msg.msg.toString())
                     startActivity(intent)
                 }
-                
-                recyclerview_message.adapter=adapter
+
+                recyclerview_message.adapter = adapter
             }
 
         })

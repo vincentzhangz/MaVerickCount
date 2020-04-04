@@ -3,7 +3,9 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="login_button">Login</string>
     <string name="register_button">Register</string>
     <string name="goto_login">Already have account?</string>
+    <string name="goto_register">Register ?</string>
     <string name="input_message">Input Message</string>
 </resources>

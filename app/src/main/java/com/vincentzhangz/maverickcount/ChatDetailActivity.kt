@@ -1,8 +1,8 @@
 package com.vincentzhangz.maverickcount
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -14,22 +14,21 @@ import com.vincentzhangz.maverickcount.models.MessageDetail
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_chat_detail.*
-import kotlinx.android.synthetic.main.message_item.*
 
 class ChatDetailActivity : AppCompatActivity() {
 
-    val database = FirebaseDatabase.getInstance()
-    var msgId=""
-    var userId=""
+    private lateinit var database: FirebaseDatabase
+    private lateinit var userId: String
+    private var msgId: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_detail)
+        database = FirebaseDatabase.getInstance()
+        msgId = intent.getStringExtra("msgId")
+        supportActionBar?.title = msgId
 
-        msgId=intent.getStringExtra("user")
-        supportActionBar?.title=msgId
-
-        recyclerview_chat_detail.layoutManager=LinearLayoutManager(this)
+        recyclerview_chat_detail.layoutManager = LinearLayoutManager(this)
 
         getUserData()
 
@@ -37,30 +36,29 @@ class ChatDetailActivity : AppCompatActivity() {
     }
 
     private fun getUserData() {
-        val sharedPreferences= getSharedPreferences("user",Context.MODE_PRIVATE)
-        userId=sharedPreferences.getString("userId","").toString()
+        val sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
+        userId = sharedPreferences.getString("userId", "").toString()
     }
 
     private fun fetchMessage() {
-        val db=database.getReference("chat-detail").child("\""+msgId+"\"")
-        db.addValueEventListener(object :ValueEventListener{
+        val db = msgId?.let { database.getReference("chat-detail").child(it) }
+        db!!.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
 
             }
 
             override fun onDataChange(ds: DataSnapshot) {
-                val adapter=GroupAdapter<ViewHolder>()
-                ds.children.forEach{
+                val adapter = GroupAdapter<ViewHolder>()
+                ds.children.forEach {
 //                    Log.d("msg",it.toString())
-                    val messages=it.getValue(MessageDetail::class.java)
-                    if(messages!!.user==userId){
-                        adapter.add(ChatDetailRight(messages!!.msg))
-                    }
-                    else{
-                        adapter.add(ChatDetailLeft(messages!!.msg))
+                    val messages = it.getValue(MessageDetail::class.java)
+                    if (messages!!.user == userId) {
+                        adapter.add(ChatDetailRight(messages.msg))
+                    } else {
+                        adapter.add(ChatDetailLeft(messages.msg))
                     }
                 }
-                recyclerview_chat_detail.adapter=adapter
+                recyclerview_chat_detail.adapter = adapter
             }
 
         })
@@ -70,8 +68,11 @@ class ChatDetailActivity : AppCompatActivity() {
     }
 
     private fun sendMessage() {
-        var message=et_msg.text.toString()
-        val db=database.getReference("chat-detail").child("\""+msgId+"\"").push().setValue(MessageDetail(userId,message,System.currentTimeMillis()))
+        val message = et_msg.text.toString()
+        val db = msgId?.let {
+            database.getReference("chat-detail").child(it).push()
+                .setValue(MessageDetail(userId, message, System.currentTimeMillis()))
+        }
         et_msg.setText("")
     }
 }
