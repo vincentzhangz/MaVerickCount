@@ -3,11 +3,11 @@ package com.vincentzhangz.maverickcount
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.vincentzhangz.maverickcount.models.User
+import com.vincentzhangz.maverickcount.utilities.SystemUtility.Companion.toast
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
@@ -35,32 +35,22 @@ class RegisterActivity : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         val user = auth.currentUser
-                        val toast = Toast.makeText(applicationContext, user?.uid, Toast.LENGTH_LONG)
-                        toast.show()
+                        toast(user?.uid.toString())
                         val sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
                         sharedPreferences.edit().putString("userId", user?.uid).apply()
                         database.getReference("users").child(user!!.uid)
                             .setValue(
-                                user.email?.let { User(user.uid, it,ArrayList()) }
+                                user.email?.let { User(user.uid, it, ArrayList()) }
                             )
-                        Toast.makeText(
-                            baseContext, "Register success.",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        toast("Register success.")
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     } else {
-                        Toast.makeText(
-                            baseContext, "Register failed.",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        toast("Register failed.")
                     }
                 }
         } else {
-            Toast.makeText(
-                baseContext, "Password must be same!",
-                Toast.LENGTH_SHORT
-            ).show()
+            toast("Password must be same!")
         }
 
     }

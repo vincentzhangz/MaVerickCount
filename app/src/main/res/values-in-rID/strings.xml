@@ -9,4 +9,10 @@
     <string name="goto_login">Sudah punya akun?</string>
     <string name="goto_register">Daftar ?</string>
     <string name="input_message">Masukkan pesan</string>
+    <string name="drawer_open">drawerOpen</string>
+    <string name="sign_out">Keluar</string>
+    <string name="drawer_close">drawerClose</string>
+    <string name="setting">Pengaturan</string>
+    <string name="profile">Profil</string>
+    <string name="chat">Chat</string>
 </resources>

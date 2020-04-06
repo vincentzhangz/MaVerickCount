@@ -3,7 +3,6 @@ package com.vincentzhangz.maverickcount
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -13,6 +12,7 @@ import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.vincentzhangz.maverickcount.utilities.SystemUtility.Companion.toast
 import kotlinx.android.synthetic.main.activity_login.*
 
 
@@ -66,15 +66,13 @@ class LoginActivity : AppCompatActivity() {
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>?) {
         try {
             val account = completedTask!!.getResult(ApiException::class.java)
-            val toast = Toast.makeText(applicationContext, account?.id, Toast.LENGTH_LONG)
-            toast.show()
+            toast(account?.id.toString())
             val sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
             sharedPreferences.edit().putString("userId", account?.id).apply()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         } catch (e: ApiException) {
-            val toast = Toast.makeText(applicationContext, "Failed to Login", Toast.LENGTH_LONG)
-            toast.show()
+            toast("Failed to Login")
         }
     }
 
@@ -83,17 +81,14 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
-                    val toast = Toast.makeText(applicationContext, user?.uid, Toast.LENGTH_LONG)
-                    toast.show()
+                    toast(user?.uid.toString())
+
                     val sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
                     sharedPreferences.edit().putString("userId", user?.uid).apply()
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 } else {
-                    Toast.makeText(
-                        baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    toast("Authentication failed.")
                 }
             }
     }

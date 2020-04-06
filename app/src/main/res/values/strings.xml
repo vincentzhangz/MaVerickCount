@@ -8,4 +8,10 @@
     <string name="goto_login">Already have account?</string>
     <string name="goto_register">Register ?</string>
     <string name="input_message">Input Message</string>
+    <string name="drawer_open">drawerOpen</string>
+    <string name="drawer_close">drawerClose</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="setting">Setting</string>
+    <string name="profile">Profile</string>
+    <string name="chat">Chat</string>
 </resources>
