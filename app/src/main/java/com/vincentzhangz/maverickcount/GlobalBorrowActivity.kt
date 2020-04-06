@@ -58,7 +58,7 @@ class GlobalBorrowActivity : AppCompatActivity() {
 //                        Toast.makeText(applicationContext,data.borrowData.borrowRequest.borrower,Toast.LENGTH_SHORT).show()
                         val borrowData=data.borrowData.borrowRequest
                         database.getReference("borrow").child(data.borrowData.uid)
-                            .setValue(BorrowRequest(borrowData.borrower,UserUtil.getUserId(),borrowData.amount,borrowData.requestDate,borrowData.deadlineDate))
+                            .setValue(BorrowRequest(borrowData.borrower,UserUtil.getUserId(view.context),borrowData.amount,borrowData.requestDate,borrowData.deadlineDate))
                         database.getReference("borrow-request").child(data.borrowData.uid).removeValue()
                     })
                     dialogBuilder.setNegativeButton("Cancel",DialogInterface.OnClickListener { dialog, which ->
