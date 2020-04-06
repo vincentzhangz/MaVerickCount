@@ -26,9 +26,9 @@ class ChatActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat)
         getUserId()
         supportActionBar?.title = "Message"
-        val adapter = GroupAdapter<ViewHolder>()
-
-        recyclerview_message.adapter = adapter
+//        val adapter = GroupAdapter<ViewHolder>()
+//
+//        recyclerview_message.adapter = adapter
         recyclerview_message.layoutManager = LinearLayoutManager(this)
 
 //        TokenHelper.getCurrToken()

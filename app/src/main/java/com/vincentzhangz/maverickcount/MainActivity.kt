@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_chat.setOnClickListener {
-            val intent = Intent(this, ChatActivity::class.java)
+            val intent = Intent(this, GlobalBorrowActivity::class.java)
             startActivity(intent)
         }
 

@@ -41,7 +41,7 @@ class RegisterActivity : AppCompatActivity() {
                         sharedPreferences.edit().putString("userId", user?.uid).apply()
                         database.getReference("users").child(user!!.uid)
                             .setValue(
-                                user.email?.let { User(user.uid, it) }
+                                user.email?.let { User(user.uid, it,ArrayList()) }
                             )
                         Toast.makeText(
                             baseContext, "Register success.",
