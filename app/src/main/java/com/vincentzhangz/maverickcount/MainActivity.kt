@@ -69,6 +69,16 @@ class MainActivity : AppCompatActivity() {
                         .replace(R.id.fragment_container, BorrowRequestActivity())
                         .addToBackStack(null).commit()
                 }
+                R.id.personal_borrow_request -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, PersonalBorrowActivity())
+                        .addToBackStack(null).commit()
+                }
+                R.id.lender_request -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, LenderRequestActivity())
+                        .addToBackStack(null).commit()
+                }
                 R.id.sign_out -> {
                     FirebaseDatabase.getInstance().getReference("users")
                         .child(UserUtil.getUserId(this.applicationContext))

@@ -92,12 +92,14 @@ class ChatDetailActivity : AppCompatActivity() {
 
     private fun sendMessage() {
         val message = et_msg.text.toString()
-        msgId?.let {
-            database.getReference("chat-detail").child(it).push()
-                .setValue(MessageDetail(userId, message, System.currentTimeMillis()))
-        }
-        et_msg.setText("")
-        Log.d("token2",friendToken)
-        notif.sendNotif("New Message",message,friendToken)
+       if(message!=""){
+           msgId?.let {
+               database.getReference("chat-detail").child(it).push()
+                   .setValue(MessageDetail(userId, message, System.currentTimeMillis()))
+           }
+           et_msg.setText("")
+           Log.d("token2",friendToken)
+           notif.sendNotif("New Message",message,friendToken)
+       }
     }
 }

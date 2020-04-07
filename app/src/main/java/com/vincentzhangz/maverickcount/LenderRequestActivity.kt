@@ -2,7 +2,6 @@ package com.vincentzhangz.maverickcount
 
 import android.app.AlertDialog
 import android.content.DialogInterface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,15 +17,13 @@ import com.google.firebase.database.ValueEventListener
 import com.vincentzhangz.maverickcount.models.BorrowItem
 import com.vincentzhangz.maverickcount.models.BorrowRequest
 import com.vincentzhangz.maverickcount.models.BorrowRequestData
-import com.vincentzhangz.maverickcount.models.User
 import com.vincentzhangz.maverickcount.utilities.UserUtil
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
-import kotlinx.android.synthetic.main.activity_global_borrow.*
-import kotlinx.android.synthetic.main.activity_global_borrow.view.*
-import java.security.AccessController.getContext
+import kotlinx.android.synthetic.main.activity_lender_request.view.*
+import kotlinx.android.synthetic.main.activity_personal_borrow.view.*
 
-class GlobalBorrowActivity : Fragment() {
+class LenderRequestActivity : Fragment() {
     private val database = FirebaseDatabase.getInstance()
     private lateinit var userId:String
 
@@ -35,31 +32,33 @@ class GlobalBorrowActivity : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView=inflater.inflate(R.layout.activity_global_borrow,container,false)
-        userId=UserUtil.getUserId(this.activity!!.applicationContext)
-        rootView.recyclerview_global_borrow.layoutManager = LinearLayoutManager(activity)
-        fetchBorrowData(rootView)
+        val rootView=inflater.inflate(R.layout.activity_lender_request,container,false)
+        userId= UserUtil.getUserId(this.activity!!.applicationContext)
+        rootView.recyclerview_lender_request.layoutManager = LinearLayoutManager(activity)
+        fetchRequestData(rootView)
         return rootView
     }
 
-    private fun fetchBorrowData(view: View) {
-        val db=database.getReference("borrow-request")
-        db.addValueEventListener(object:ValueEventListener{
+    private fun fetchRequestData(view: View) {
+        val db=database.getReference("lend-request")
+        db.addValueEventListener(object: ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 TODO("Not yet implemented")
             }
 
             override fun onDataChange(ds: DataSnapshot) {
                 var dataExist:Boolean=false
-                val adapter=GroupAdapter<ViewHolder>()
+                val adapter= GroupAdapter<ViewHolder>()
+//                Log.d("borrow",ds.toString())
                 ds.children.forEach {
                     val borrow=it.getValue(BorrowRequest::class.java)
                     val borrowData= borrow?.let { it1 -> BorrowRequestData(it.key.toString(), it1) } as BorrowRequestData
-                    if(borrowData.borrowRequest.lender==""&&borrowData.borrowRequest.borrower!=userId){
+                    if(borrowData.borrowRequest.borrower==userId){
                         adapter.add(BorrowItem(borrowData))
                         dataExist=true
                     }
                 }
+
                 if(!dataExist){
                     return
                 }
@@ -68,23 +67,29 @@ class GlobalBorrowActivity : Fragment() {
                     val data=item as BorrowItem
                     dialogBuilder.setMessage("Are you sure give a loan ?")
                     dialogBuilder.setCancelable(false)
-                    dialogBuilder.setPositiveButton("Accept",DialogInterface.OnClickListener { dialog, which ->
+                    dialogBuilder.setPositiveButton("Accept",
+                        DialogInterface.OnClickListener { dialog, which ->
 //                        Toast.makeText(applicationContext,data.borrowData.borrowRequest.borrower,Toast.LENGTH_SHORT).show()
-                        val borrowData=data.borrowData.borrowRequest
-                        database.getReference("lend-request").child(data.borrowData.uid)
-                            .setValue(BorrowRequest(borrowData.borrower,UserUtil.getUserId(view.context),borrowData.amount,borrowData.requestDate,borrowData.deadlineDate))
-                        database.getReference("borrow-request").child(data.borrowData.uid).removeValue()
-                    })
-                    dialogBuilder.setNegativeButton("Cancel",DialogInterface.OnClickListener { dialog, which ->
-                        Toast.makeText(activity,"Cancel",Toast.LENGTH_SHORT).show()
-                    })
+                            val borrowData=data.borrowData.borrowRequest
+                            database.getReference("borrow").child(data.borrowData.uid)
+                                .setValue(
+                                    BorrowRequest(borrowData.borrower,
+                                        borrowData.lender,borrowData.amount,borrowData.requestDate,borrowData.deadlineDate)
+                                )
+                            database.getReference("lend-request").child(data.borrowData.uid).removeValue()
+                        })
+                    dialogBuilder.setNegativeButton("Cancel",
+                        DialogInterface.OnClickListener { dialog, which ->
+                            Toast.makeText(activity,"Cancel", Toast.LENGTH_SHORT).show()
+                        })
                     val dialog=dialogBuilder.create()
                     dialog.setTitle("Loan Confirmation")
                     dialog.show()
                 }
-                view.recyclerview_global_borrow.adapter=adapter
+                view.recyclerview_lender_request.adapter=adapter
             }
 
         })
     }
+
 }

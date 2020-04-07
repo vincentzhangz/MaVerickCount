@@ -7,8 +7,14 @@
         android:id="@+id/borrow_request"
         android:title="Borrow Request"/>
     <item
+        android:id="@+id/personal_borrow_request"
+        android:title="Personal Borrow Request Handler"/>
+    <item
         android:id="@+id/browse"
         android:title="Browse"/>
+    <item
+        android:id="@+id/lender_request"
+        android:title="Lender Request"/>
     <item
         android:id="@+id/chat"
         android:title="@string/chat" />

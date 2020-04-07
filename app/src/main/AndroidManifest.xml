@@ -8,6 +8,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".LenderRequestActivity"></activity>
+        <activity android:name=".PersonalBorrowActivity" />
 
         <service
             android:name=".services.MyFirebaseMessagingService"
