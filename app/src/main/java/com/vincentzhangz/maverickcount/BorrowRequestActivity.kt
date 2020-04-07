@@ -72,14 +72,14 @@ class BorrowRequestActivity : Fragment() {
     }
 
 
-    private fun setDatePicker(view: View) {
+    private fun setDatePicker(viewRoot: View) {
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
-        datePicker= DatePickerDialog(this.activity!!.baseContext,DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+        datePicker= DatePickerDialog(this.activity!!,DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
             deadlineDate= LocalDateTime.of(year,month+1,dayOfMonth,23,59)
-            view.date_picker.text= deadlineDate.toString()
+            viewRoot.date_picker.text= deadlineDate.toString()
         },year,month,day)
         datePicker.show()
     }

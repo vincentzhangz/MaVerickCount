@@ -80,7 +80,14 @@ class LenderRequestActivity : Fragment() {
                         })
                     dialogBuilder.setNegativeButton("Cancel",
                         DialogInterface.OnClickListener { dialog, which ->
-                            Toast.makeText(activity,"Cancel", Toast.LENGTH_SHORT).show()
+//                            Toast.makeText(activity,"Cancel", Toast.LENGTH_SHORT).show()
+                            val borrowData=data.borrowData.borrowRequest
+                            database.getReference("borrow-request").child(data.borrowData.uid)
+                                .setValue(
+                                    BorrowRequest(borrowData.borrower,
+                                        borrowData.lender,borrowData.amount,borrowData.requestDate,borrowData.deadlineDate)
+                                )
+                            database.getReference("lend-request").child(data.borrowData.uid).removeValue()
                         })
                     val dialog=dialogBuilder.create()
                     dialog.setTitle("Loan Confirmation")
