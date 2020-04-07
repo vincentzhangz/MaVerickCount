@@ -1,20 +1,42 @@
 package com.vincentzhangz.maverickcount
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
+import com.vincentzhangz.maverickcount.models.NotificationModel
+import com.vincentzhangz.maverickcount.utilities.OtherUtil
 import com.vincentzhangz.maverickcount.utilities.SystemUtility.Companion.toast
+import com.vincentzhangz.maverickcount.utilities.UserUtil
 import kotlinx.android.synthetic.main.activity_main.*
+import org.json.JSONException
+import org.json.JSONObject
+
 
 class MainActivity : AppCompatActivity() {
+
+    private val FCM_API = "https://fcm.googleapis.com/fcm/send"
+    private val serverKey =
+        "key=" + "AAAAKWj3SCI:APA91bFtY6acERyEHgiI8Xx2-NSoeHMvn4mkpBhqaBsPaxdTkabLxS8kp-S4DH5NLNMeZebZfsw8dpBKQjFEKNSRkXdBn72XNX9dQ7oJtr1BtbaWygYirMvdNFa9QP9oWsPx56vPA4AU"
+    private val contentType = "application/json"
+    private lateinit var notif:NotificationModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        FirebaseMessaging.getInstance().subscribeToTopic("/topics/topic")
+        notif=NotificationModel(this.applicationContext)
 
         setSupportActionBar(toolbar)
 
@@ -52,29 +74,23 @@ class MainActivity : AppCompatActivity() {
                 R.id.sign_out -> {
                     toast("Sign Out")
                 }
-
             }
-
-            // Close the drawer
             drawer.closeDrawer(GravityCompat.START)
             true
         }
 
-        val sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
-        val userId = sharedPreferences.getString("userId", "").toString()
+        val userId = UserUtil.getUserId(this)
         if (userId == "") {
             toast("You are not authorized")
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
 
-//        user_id.text = userId
-//        btn_chat.setOnClickListener {
-//            val intent = Intent(this, GlobalBorrowActivity::class.java)
-//            startActivity(intent)
-//        }
-
+//        notif.sendNotif("Judul","Pesan")
+        OtherUtil.printToken()
     }
+
+
 
 
 }

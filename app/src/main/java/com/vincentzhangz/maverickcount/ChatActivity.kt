@@ -15,8 +15,10 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.vincentzhangz.maverickcount.models.MessageHead
 import com.vincentzhangz.maverickcount.models.MessageHeader
+import com.vincentzhangz.maverickcount.models.NotificationModel
 import com.vincentzhangz.maverickcount.utilities.UserUtil
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
@@ -28,6 +30,7 @@ class ChatActivity : Fragment() {
 
     private val database = FirebaseDatabase.getInstance()
     private lateinit var userId: String
+//    private lateinit var notif: NotificationModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +38,10 @@ class ChatActivity : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView=inflater.inflate(R.layout.activity_chat,container,false)
+
+//        FirebaseMessaging.getInstance().subscribeToTopic("/topics/topic")
+//        notif=NotificationModel(this.context!!.applicationContext)
+//        notif.sendNotif("Judul","Pesan")
 
         getUserId()
         rootView.recyclerview_message.layoutManager = LinearLayoutManager(activity)
