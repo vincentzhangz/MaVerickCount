@@ -1,28 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="10dp"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/txv_borrower_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="asdasd"/>
+        android:text="Borrower Name" />
+
     <TextView
         android:id="@+id/txv_borrow_request_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="asdasd"/>
+        android:text="Request Date" />
+
     <TextView
         android:id="@+id/txv_borrow_deadline_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="asdasd"/>
+        android:text="Deadline Date" />
+
     <TextView
         android:id="@+id/txv_borrow_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="asdasd"/>
+        android:text="Amount" />
 
 </LinearLayout>

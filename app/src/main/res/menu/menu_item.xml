@@ -5,21 +5,27 @@
         android:title="@string/profile" />
     <item
         android:id="@+id/borrow_request"
-        android:title="Borrow Request"/>
+        android:title="Borrow Request" />
     <item
         android:id="@+id/personal_borrow_request"
-        android:title="Personal Borrow Request Handler"/>
+        android:title="Personal Borrow Request Handler" />
     <item
         android:id="@+id/browse"
-        android:title="Browse"/>
+        android:title="Browse" />
     <item
         android:id="@+id/lender_request"
-        android:title="Lender Request"/>
+        android:title="Lender Request" />
     <item
         android:id="@+id/chat"
+        android:icon="@drawable/chat_icon_foreground"
         android:title="@string/chat" />
     <item
+        android:id="@+id/friend"
+        android:icon="@drawable/people_icon_foreground"
+        android:title="@string/friend" />
+    <item
         android:id="@+id/setting"
+        android:icon="@drawable/setting_icon_foreground"
         android:title="@string/setting" />
     <item
         android:id="@+id/sign_out"

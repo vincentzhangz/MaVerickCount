@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="friendName">20dp</dimen>
+    <dimen name="header_size">200dp</dimen>
+    <dimen name="display_name">15dp</dimen>
+</resources>

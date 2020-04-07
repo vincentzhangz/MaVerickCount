@@ -8,6 +8,11 @@
         android:id="@+id/txv_msg_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxWidth="300dp"
-        android:text="asd" />
+        android:layout_margin="10dp"
+        android:background="@drawable/message_receive_bubble"
+        android:maxWidth="@dimen/message_max_width"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="5dp"
+        android:text="Left"
+        android:textSize="@dimen/message_text_size" />
 </LinearLayout>

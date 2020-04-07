@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="friendName">20dp</dimen>
+    <dimen name="header_size">200dp</dimen>
+    <dimen name="display_name">20dp</dimen>
+    <dimen name="message_max_width">300dp</dimen>
+    <dimen name="message_text_size">15dp</dimen>
+</resources>

@@ -67,14 +67,15 @@ class LoginActivity : AppCompatActivity() {
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>?) {
         try {
             val account = completedTask!!.getResult(ApiException::class.java)
-            toast(this, account?.id.toString())
+//            toast(this, account?.id.toString())
+            toast(this, "Login success.")
             OtherUtil.setUserToken(account?.id.toString())
             val sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
             sharedPreferences.edit().putString("userId", account?.id).apply()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         } catch (e: ApiException) {
-            toast(this, "Failed to Login")
+            toast(this, "Authentication failed.")
         }
     }
 
@@ -83,7 +84,8 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
-                    toast(this, user?.uid.toString())
+//                    toast(this, user?.uid.toString())
+                    toast(this, "Login success.")
                     OtherUtil.setUserToken(user?.uid.toString())
                     val sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
                     sharedPreferences.edit().putString("userId", user?.uid).apply()

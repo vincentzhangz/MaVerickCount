@@ -2,7 +2,6 @@ package com.vincentzhangz.maverickcount.models
 
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -10,12 +9,13 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONException
 import org.json.JSONObject
 
-class NotificationModel(notifContext: Context){
+class NotificationModel(notifContext: Context) {
     private val FCM_API = "https://fcm.googleapis.com/fcm/send"
-    private val serverKey = "key=AAAAKWj3SCI:APA91bFtY6acERyEHgiI8Xx2-NSoeHMvn4mkpBhqaBsPaxdTkabLxS8kp-S4DH5NLNMeZebZfsw8dpBKQjFEKNSRkXdBn72XNX9dQ7oJtr1BtbaWygYirMvdNFa9QP9oWsPx56vPA4AU"
+    private val serverKey =
+        "key=AAAAKWj3SCI:APA91bFtY6acERyEHgiI8Xx2-NSoeHMvn4mkpBhqaBsPaxdTkabLxS8kp-S4DH5NLNMeZebZfsw8dpBKQjFEKNSRkXdBn72XNX9dQ7oJtr1BtbaWygYirMvdNFa9QP9oWsPx56vPA4AU"
     private val contentType = "application/json"
 
-    fun sendNotif(title:String, message:String, target:String) {
+    fun sendNotif(title: String, message: String, target: String) {
         val notification = JSONObject()
         val notificationBody = JSONObject()
 

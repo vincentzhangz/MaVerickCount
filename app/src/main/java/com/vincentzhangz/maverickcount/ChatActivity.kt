@@ -1,28 +1,21 @@
 package com.vincentzhangz.maverickcount
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.messaging.FirebaseMessaging
 import com.vincentzhangz.maverickcount.models.MessageHead
 import com.vincentzhangz.maverickcount.models.MessageHeader
-import com.vincentzhangz.maverickcount.models.NotificationModel
 import com.vincentzhangz.maverickcount.utilities.UserUtil
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
-import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.android.synthetic.main.activity_chat.view.*
 
 
@@ -36,7 +29,7 @@ class ChatActivity : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView=inflater.inflate(R.layout.activity_chat,container,false)
+        val rootView = inflater.inflate(R.layout.activity_chat, container, false)
 
         getUserId()
         rootView.recyclerview_message.layoutManager = LinearLayoutManager(activity)
@@ -45,7 +38,7 @@ class ChatActivity : Fragment() {
     }
 
     private fun getUserId() {
-       userId=UserUtil.getUserId(activity!!.applicationContext)
+        userId = UserUtil.getUserId(activity!!.applicationContext)
     }
 
     private fun fetchMessage(v: View) {

@@ -10,6 +10,7 @@
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
         android:autofillHints="@string/email"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
@@ -23,11 +24,13 @@
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
         android:autofillHints="@string/password"
         android:hint="@string/password"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email"
+
         app:layout_constraintVertical_bias="0.005"
         tools:ignore="LabelFor"
         tools:layout_editor_absoluteX="16dp" />
@@ -36,9 +39,11 @@
         android:id="@+id/login_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
         android:text="@string/login_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password"
+
         app:layout_constraintVertical_bias="0.05"
         tools:layout_editor_absoluteX="16dp" />
 

@@ -6,10 +6,15 @@
 
     <TextView
         android:id="@+id/txv_msg_detail_right"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxWidth="300dp"
-        android:text="asd"
-        android:textAlignment="textEnd" />
+        android:layout_margin="10dp"
+        android:background="@drawable/message_send_bubble"
+        android:maxWidth="@dimen/message_max_width"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="5dp"
+        android:text="Right"
+        android:textAlignment="textEnd"
+        android:textSize="@dimen/message_text_size" />
 
 </LinearLayout>

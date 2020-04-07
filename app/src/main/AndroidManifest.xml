@@ -8,8 +8,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LenderRequestActivity"></activity>
-        <activity android:name=".PersonalBorrowActivity" />
 
         <service
             android:name=".services.MyFirebaseMessagingService"
@@ -20,29 +18,22 @@
             </intent-filter>
         </service>
 
+        <activity android:name=".LenderRequestActivity" />
+        <activity android:name=".PersonalBorrowActivity" />
         <activity android:name=".BorrowRequestHandlerActivity" />
         <activity android:name=".GlobalBorrowActivity" />
         <activity android:name=".BorrowRequestActivity" />
         <activity android:name=".ChatDetailActivity" />
-        <activity android:name=".ChatActivity">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
+        <activity android:name=".ChatActivity" />
         <activity android:name=".LendBrowseActivity" />
         <activity android:name=".RegisterActivity" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
     </application>
 
 </manifest>
