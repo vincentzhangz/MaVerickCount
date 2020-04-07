@@ -12,6 +12,7 @@ import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.vincentzhangz.maverickcount.utilities.OtherUtil
 import com.vincentzhangz.maverickcount.utilities.SystemUtility.Companion.toast
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -67,6 +68,7 @@ class LoginActivity : AppCompatActivity() {
         try {
             val account = completedTask!!.getResult(ApiException::class.java)
             toast(account?.id.toString())
+            OtherUtil.setUserToken(account?.id.toString())
             val sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
             sharedPreferences.edit().putString("userId", account?.id).apply()
             val intent = Intent(this, MainActivity::class.java)

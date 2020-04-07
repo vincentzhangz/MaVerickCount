@@ -3,6 +3,7 @@ package com.vincentzhangz.maverickcount.utilities
 import android.content.Context
 import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.iid.FirebaseInstanceId
 import com.vincentzhangz.maverickcount.utilities.SystemUtility.Companion.toast
 import java.time.Instant
@@ -34,6 +35,17 @@ class OtherUtil{
                 val token = task.result!!.token
                 Log.d("token",token)
             })
+        }
+        fun setUserToken(userId:String){
+            FirebaseInstanceId.getInstance().instanceId
+                .addOnCompleteListener(OnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        return@OnCompleteListener
+                    }
+                    val token = task.result!!.token
+//                    Log.d("token",token)
+                    FirebaseDatabase.getInstance().getReference("users").child(userId).child("deviceId").setValue(token)
+                })
         }
     }
 }
