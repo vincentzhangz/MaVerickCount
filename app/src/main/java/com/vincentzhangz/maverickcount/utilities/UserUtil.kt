@@ -37,13 +37,14 @@ class OtherUtil{
             })
         }
         fun setUserToken(userId:String){
+            Log.d("token","test")
             FirebaseInstanceId.getInstance().instanceId
                 .addOnCompleteListener(OnCompleteListener { task ->
                     if (!task.isSuccessful) {
                         return@OnCompleteListener
                     }
                     val token = task.result!!.token
-//                    Log.d("token",token)
+                    Log.d("token",token)
                     FirebaseDatabase.getInstance().getReference("users").child(userId).child("deviceId").setValue(token)
                 })
         }

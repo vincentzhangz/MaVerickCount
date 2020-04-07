@@ -3,6 +3,7 @@ package com.vincentzhangz.maverickcount
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -84,7 +85,7 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val user = auth.currentUser
                     toast(user?.uid.toString())
-
+                    OtherUtil.setUserToken(user?.uid.toString())
                     val sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
                     sharedPreferences.edit().putString("userId", user?.uid).apply()
                     val intent = Intent(this, MainActivity::class.java)

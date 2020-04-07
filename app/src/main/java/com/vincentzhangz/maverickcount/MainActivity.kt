@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 //        notif.sendNotif("Judul","Pesan")
-        OtherUtil.printToken()
+//        OtherUtil.printToken()
     }
 
 
