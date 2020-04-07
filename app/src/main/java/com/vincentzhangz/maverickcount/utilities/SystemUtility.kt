@@ -5,8 +5,8 @@ import android.widget.Toast
 
 class SystemUtility {
     companion object {
-        fun Context.toast(message: String) {
-            Toast.makeText(applicationContext, message, message.length).show()
+        fun toast(context: Context, message: String) {
+            Toast.makeText(context, message, message.length).show()
         }
     }
 }

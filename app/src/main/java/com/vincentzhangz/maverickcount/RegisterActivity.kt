@@ -35,22 +35,22 @@ class RegisterActivity : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         val user = auth.currentUser
-                        toast(user?.uid.toString())
+                        toast(this, user?.uid.toString())
                         val sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
                         sharedPreferences.edit().putString("userId", user?.uid).apply()
                         database.getReference("users").child(user!!.uid)
                             .setValue(
                                 user.email?.let { User(user.uid, it, ArrayList()) }
                             )
-                        toast("Register success.")
+                        toast(this, "Register success.")
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     } else {
-                        toast("Register failed.")
+                        toast(this, "Register failed.")
                     }
                 }
         } else {
-            toast("Password must be same!")
+            toast(this, "Password must be same!")
         }
 
     }

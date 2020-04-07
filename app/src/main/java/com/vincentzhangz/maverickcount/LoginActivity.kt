@@ -3,7 +3,6 @@ package com.vincentzhangz.maverickcount
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -68,14 +67,14 @@ class LoginActivity : AppCompatActivity() {
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>?) {
         try {
             val account = completedTask!!.getResult(ApiException::class.java)
-            toast(account?.id.toString())
+            toast(this, account?.id.toString())
             OtherUtil.setUserToken(account?.id.toString())
             val sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
             sharedPreferences.edit().putString("userId", account?.id).apply()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         } catch (e: ApiException) {
-            toast("Failed to Login")
+            toast(this, "Failed to Login")
         }
     }
 
@@ -84,14 +83,14 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
-                    toast(user?.uid.toString())
+                    toast(this, user?.uid.toString())
                     OtherUtil.setUserToken(user?.uid.toString())
                     val sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
                     sharedPreferences.edit().putString("userId", user?.uid).apply()
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 } else {
-                    toast("Authentication failed.")
+                    toast(this, "Authentication failed.")
                 }
             }
     }
