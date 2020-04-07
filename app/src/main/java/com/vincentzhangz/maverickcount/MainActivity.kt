@@ -41,8 +41,13 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.profile -> toast("Profile clicked")
                 R.id.chat -> {
-                    val intent = Intent(this, ChatActivity::class.java)
-                    startActivity(intent)
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, ChatActivity()).addToBackStack(null).commit()
+                }
+                R.id.browse->{
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, GlobalBorrowActivity()).addToBackStack(null).commit()
+                }
+                R.id.borrow_request->{
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, BorrowRequestActivity()).addToBackStack(null).commit()
                 }
                 R.id.sign_out -> {
                     toast("Sign Out")

@@ -5,7 +5,11 @@ import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -18,20 +22,24 @@ import com.vincentzhangz.maverickcount.utilities.UserUtil
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_global_borrow.*
+import kotlinx.android.synthetic.main.activity_global_borrow.view.*
 import java.security.AccessController.getContext
 
-class GlobalBorrowActivity : AppCompatActivity() {
+class GlobalBorrowActivity : Fragment() {
     private val database = FirebaseDatabase.getInstance()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_global_borrow)
-
-        recyclerview_global_borrow.layoutManager = LinearLayoutManager(this)
-        fetchBorrowData()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val rootView=inflater.inflate(R.layout.activity_global_borrow,container,false)
+        rootView.recyclerview_global_borrow.layoutManager = LinearLayoutManager(activity)
+        fetchBorrowData(rootView)
+        return rootView
     }
 
-    private fun fetchBorrowData() {
+    private fun fetchBorrowData(view: View) {
         val db=database.getReference("borrow-request")
         db.addValueEventListener(object:ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
@@ -57,18 +65,18 @@ class GlobalBorrowActivity : AppCompatActivity() {
                     dialogBuilder.setPositiveButton("Accept",DialogInterface.OnClickListener { dialog, which ->
 //                        Toast.makeText(applicationContext,data.borrowData.borrowRequest.borrower,Toast.LENGTH_SHORT).show()
                         val borrowData=data.borrowData.borrowRequest
-                        database.getReference("borrow").child(data.borrowData.uid)
+                        database.getReference("lend-request").child(data.borrowData.uid)
                             .setValue(BorrowRequest(borrowData.borrower,UserUtil.getUserId(view.context),borrowData.amount,borrowData.requestDate,borrowData.deadlineDate))
                         database.getReference("borrow-request").child(data.borrowData.uid).removeValue()
                     })
                     dialogBuilder.setNegativeButton("Cancel",DialogInterface.OnClickListener { dialog, which ->
-                        Toast.makeText(applicationContext,"Cancel",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity,"Cancel",Toast.LENGTH_SHORT).show()
                     })
                     val dialog=dialogBuilder.create()
                     dialog.setTitle("Loan Confirmation")
                     dialog.show()
                 }
-                recyclerview_global_borrow.adapter=adapter
+                view.recyclerview_global_borrow.adapter=adapter
             }
 
         })

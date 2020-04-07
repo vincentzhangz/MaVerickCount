@@ -8,7 +8,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GlobalBorrowActivity"></activity>
+        <activity android:name=".BorrowRequestHandlerActivity"></activity>
+        <activity android:name=".GlobalBorrowActivity" />
         <activity android:name=".BorrowRequestActivity" />
         <activity android:name=".ChatDetailActivity" />
         <activity android:name=".ChatActivity">
