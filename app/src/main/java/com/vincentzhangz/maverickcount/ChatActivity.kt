@@ -30,7 +30,6 @@ class ChatActivity : Fragment() {
 
     private val database = FirebaseDatabase.getInstance()
     private lateinit var userId: String
-//    private lateinit var notif: NotificationModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,10 +37,6 @@ class ChatActivity : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView=inflater.inflate(R.layout.activity_chat,container,false)
-
-//        FirebaseMessaging.getInstance().subscribeToTopic("/topics/topic")
-//        notif=NotificationModel(this.context!!.applicationContext)
-//        notif.sendNotif("Judul","Pesan")
 
         getUserId()
         rootView.recyclerview_message.layoutManager = LinearLayoutManager(activity)
@@ -74,6 +69,8 @@ class ChatActivity : Fragment() {
                     val msgData = item as MessageHeader
                     val intent = Intent(view.context, ChatDetailActivity::class.java)
                     intent.putExtra("msgId", msgData.msg.msg.toString())
+                    intent.putExtra("user1", msgData.msg.user1.toString())
+                    intent.putExtra("user2", msgData.msg.user2.toString())
                     startActivity(intent)
                 }
 

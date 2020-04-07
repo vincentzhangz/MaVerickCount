@@ -14,20 +14,16 @@ class NotificationModel(notifContext: Context){
     private val FCM_API = "https://fcm.googleapis.com/fcm/send"
     private val serverKey = "key=AAAAKWj3SCI:APA91bFtY6acERyEHgiI8Xx2-NSoeHMvn4mkpBhqaBsPaxdTkabLxS8kp-S4DH5NLNMeZebZfsw8dpBKQjFEKNSRkXdBn72XNX9dQ7oJtr1BtbaWygYirMvdNFa9QP9oWsPx56vPA4AU"
     private val contentType = "application/json"
-    private val testToken="eLWab9cOQ6a8uNNpQNzyON:APA91bG0sjQ2TXwkkGKDdyy1WyVhteL1qTFQJU8GyNNX2bdz0hlTTkGdrDvCmqSWISN-t7ymP0F-sXC-kxcBEpJG403U3FQfMySgZ_ZZ5G6k7MqB7vhAMbHFADOj0GK3YyKsyEskF08G"
 
-    fun sendNotif(title:String, message:String) {
-        val topic = "/topics/topic"
-
+    fun sendNotif(title:String, message:String, target:String) {
         val notification = JSONObject()
         val notificationBody = JSONObject()
 
         try {
             notificationBody.put("title", title)
             notificationBody.put("message", message)
-            notification.put("to", topic)
+            notification.put("to", target)
             notification.put("data", notificationBody)
-            notification.put("token",testToken)
         } catch (e: JSONException) {
         }
 
