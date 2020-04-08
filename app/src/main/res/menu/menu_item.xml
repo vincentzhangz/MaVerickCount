@@ -8,14 +8,11 @@
         android:id="@+id/profile"
         android:title="@string/profile" />
     <item
-        android:id="@+id/borrow_request"
-        android:title="Borrow Request" />
+        android:id="@+id/borrow_request_page"
+        android:title="Borrow Request Page" />
     <item
         android:id="@+id/borrow_page"
         android:title="Borrow Page" />
-    <item
-        android:id="@+id/lender_request"
-        android:title="Lender Request" />
     <item
         android:id="@+id/chat"
         android:icon="@drawable/chat_icon_foreground"

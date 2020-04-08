@@ -95,19 +95,14 @@ class MainActivity : AppCompatActivity() {
                         .replace(R.id.fragment_container, BorrowViewPagerActivity())
                         .addToBackStack(null).commit()
                 }
-                R.id.borrow_request -> {
+                R.id.borrow_request_page -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, BorrowRequestActivity())
-                        .addToBackStack(null).commit()
-                }
-                R.id.lender_request -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, LenderRequestActivity())
+                        .replace(R.id.fragment_container, BorrowRequestViewPagerActivity())
                         .addToBackStack(null).commit()
                 }
                 R.id.friend -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, FriendFragment())
+                        .replace(R.id.fragment_container, FriendActivity())
                         .addToBackStack(null).commit()
                 }
                 R.id.setting -> {

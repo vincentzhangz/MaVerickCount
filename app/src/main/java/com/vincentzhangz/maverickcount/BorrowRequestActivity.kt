@@ -38,7 +38,7 @@ class BorrowRequestActivity : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.activity_borrow_request, container, false)
-        getFriends()
+        getFriends(rootView)
         deadlineDate = LocalDateTime.now().plusDays(7)
         val date = dateFormatter(deadlineDate, "dd-MM-yyyy HH:mm")
         rootView.date_picker.text = date
@@ -95,7 +95,7 @@ class BorrowRequestActivity : Fragment() {
         datePicker.show()
     }
 
-    private fun getFriends() {
+    private fun getFriends(view: View) {
         val userId = UserUtil.getUserId(this.activity!!.applicationContext)
         val db = database.getReference("users").child(userId).child("friends")
         val postOpt = ArrayList<String>()
@@ -112,21 +112,21 @@ class BorrowRequestActivity : Fragment() {
                     postOpt.add(friend!!.name)
                     friendList.add(friend)
                 }
-                addSpinner(postOpt)
+                addSpinner(postOpt,view)
             }
         })
 
     }
 
-    fun addSpinner(postOpt: ArrayList<String>) {
+    fun addSpinner(postOpt: ArrayList<String>,view: View) {
         val arrayAdapter = ArrayAdapter(
             this.activity!!.baseContext,
             R.layout.support_simple_spinner_dropdown_item,
             postOpt
         )
-        post_option.setSelection(0)
-        post_option.adapter = arrayAdapter
-        post_option.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        view.post_option.setSelection(0)
+        view.post_option.adapter = arrayAdapter
+        view.post_option.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }
