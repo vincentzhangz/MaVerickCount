@@ -11,11 +11,8 @@
         android:id="@+id/borrow_request"
         android:title="Borrow Request" />
     <item
-        android:id="@+id/personal_borrow_request"
-        android:title="Personal Borrow Request Handler" />
-    <item
-        android:id="@+id/browse"
-        android:title="Browse" />
+        android:id="@+id/borrow_page"
+        android:title="Borrow Page" />
     <item
         android:id="@+id/lender_request"
         android:title="Lender Request" />

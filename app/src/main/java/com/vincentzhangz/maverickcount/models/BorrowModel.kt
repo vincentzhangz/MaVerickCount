@@ -1,5 +1,8 @@
 package com.vincentzhangz.maverickcount.models
 
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -12,6 +15,7 @@ import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.borrow_item.view.*
 import java.time.LocalDateTime
 import java.time.ZoneOffset
+import java.util.ArrayList
 
 class BorrowRequest(
     val borrower: String,
@@ -67,6 +71,28 @@ class BorrowItem(val borrowData: BorrowRequestData) : Item<ViewHolder>() {
                             borrowData.borrowRequest.amount.toString()
                 }
             })
+    }
+
+}
+
+class BorrowViewPagerAdapter(val manager:FragmentManager):FragmentPagerAdapter(manager){
+    private val fragmentList:ArrayList<Fragment> =ArrayList()
+    private val titleList:ArrayList<String> = ArrayList()
+    override fun getItem(position: Int): Fragment {
+        return fragmentList[position]
+    }
+
+    override fun getCount(): Int {
+        return fragmentList.size
+    }
+
+    override fun getPageTitle(position: Int): CharSequence? {
+        return titleList[position]
+    }
+
+    fun add(fragment: Fragment,title:String){
+        fragmentList.add(fragment)
+        titleList.add(title)
     }
 
 }

@@ -82,6 +82,10 @@ class PersonalBorrowActivity : Fragment() {
                             database.getReference("borrow-request").child(data.borrowData.uid)
                                 .removeValue()
                         })
+                    dialogBuilder.setNeutralButton("Reject",
+                        DialogInterface.OnClickListener { dialog, which ->
+
+                        })
                     dialogBuilder.setNegativeButton("Cancel",
                         DialogInterface.OnClickListener { dialog, which ->
                             Toast.makeText(activity, "Cancel", Toast.LENGTH_SHORT).show()
