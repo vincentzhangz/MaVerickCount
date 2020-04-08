@@ -1,4 +1,4 @@
-![](https://github.com/vincentzhangz/MaVerickCount/workflows/Android%20CI/badge.svg)
+![Android CI](https://github.com/vincentzhangz/MaVerickCount/workflows/Android%20CI/badge.svg?branch=master)
 [![Build Status](https://dev.azure.com/vincentzhangz/MaVerickCount/_apis/build/status/vincentzhangz.MaVerickCount?branchName=master)](https://dev.azure.com/vincentzhangz/MaVerickCount/_build/latest?definitionId=1&branchName=master)
 
 # MaVerick Count
