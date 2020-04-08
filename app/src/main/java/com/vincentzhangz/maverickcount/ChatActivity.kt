@@ -54,14 +54,14 @@ class ChatActivity : Fragment() {
                     val messages = it.getValue(MessageHead::class.java)
                     val data = messages as MessageHead
                     if (data.user1 == userId || data.user2 == userId) {
-                        adapter.add(MessageHeader(messages))
+                        adapter.add(MessageHeader(it.key.toString(),messages))
                     }
                 }
 
                 adapter.setOnItemClickListener { item, view ->
                     val msgData = item as MessageHeader
                     val intent = Intent(view.context, ChatDetailActivity::class.java)
-                    intent.putExtra("msgId", msgData.msg.msg.toString())
+                    intent.putExtra("msgId", msgData.msgId)
                     intent.putExtra("user1", msgData.msg.user1.toString())
                     intent.putExtra("user2", msgData.msg.user2.toString())
                     startActivity(intent)

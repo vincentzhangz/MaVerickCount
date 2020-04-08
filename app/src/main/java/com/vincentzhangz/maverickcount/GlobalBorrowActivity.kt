@@ -85,6 +85,7 @@ class GlobalBorrowActivity : Fragment() {
                             )
                         database.getReference("borrow-request").child(data.borrowData.uid)
                             .removeValue()
+                        reload()
                     }
                     dialogBuilder.setNegativeButton(
                         "Cancel"
@@ -99,5 +100,9 @@ class GlobalBorrowActivity : Fragment() {
             }
 
         })
+    }
+
+    private fun reload(){
+        this.fragmentManager!!.beginTransaction().detach(this).attach(this).commit()
     }
 }

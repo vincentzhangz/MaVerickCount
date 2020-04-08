@@ -16,6 +16,7 @@ import com.google.firebase.database.ValueEventListener
 import com.vincentzhangz.maverickcount.models.BorrowItem
 import com.vincentzhangz.maverickcount.models.BorrowRequest
 import com.vincentzhangz.maverickcount.models.BorrowRequestData
+import com.vincentzhangz.maverickcount.models.MessageHead
 import com.vincentzhangz.maverickcount.utilities.UserUtil
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
@@ -81,10 +82,14 @@ class PersonalBorrowActivity : Fragment() {
                                 )
                             database.getReference("borrow-request").child(data.borrowData.uid)
                                 .removeValue()
+                            database.getReference("chats").push().setValue(MessageHead(borrowData.borrower,borrowData.lender))
+                            reload()
                         })
                     dialogBuilder.setNeutralButton("Reject",
                         DialogInterface.OnClickListener { dialog, which ->
-
+                            database.getReference("borrow-request").child(data.borrowData.uid)
+                                .removeValue()
+                            reload()
                         })
                     dialogBuilder.setNegativeButton("Cancel",
                         DialogInterface.OnClickListener { dialog, which ->
@@ -98,6 +103,10 @@ class PersonalBorrowActivity : Fragment() {
             }
 
         })
+    }
+
+    fun reload(){
+        this.fragmentManager!!.beginTransaction().detach(this).attach(this).commit()
     }
 
 }

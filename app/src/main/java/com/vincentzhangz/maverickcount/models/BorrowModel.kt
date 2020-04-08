@@ -19,7 +19,7 @@ import java.util.ArrayList
 
 class BorrowRequest(
     val borrower: String,
-    val lender: String,
+    var lender: String,
     val amount: Long,
     val requestDate: Long,
     val deadlineDate: Long
