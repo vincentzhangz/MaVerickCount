@@ -21,10 +21,6 @@ import kotlinx.android.synthetic.main.header.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val FCM_API = "https://fcm.googleapis.com/fcm/send"
-    private val serverKey =
-        "key=" + "AAAAKWj3SCI:APA91bFtY6acERyEHgiI8Xx2-NSoeHMvn4mkpBhqaBsPaxdTkabLxS8kp-S4DH5NLNMeZebZfsw8dpBKQjFEKNSRkXdBn72XNX9dQ7oJtr1BtbaWygYirMvdNFa9QP9oWsPx56vPA4AU"
-    private val contentType = "application/json"
     private lateinit var notif: NotificationModel
     private lateinit var database: FirebaseDatabase
     private lateinit var userId: String
@@ -73,8 +69,17 @@ class MainActivity : AppCompatActivity() {
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, Home())
+            .addToBackStack(null).commit()
+
         navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
+                R.id.home -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, Home())
+                        .addToBackStack(null).commit()
+                }
                 R.id.profile -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, Profile())

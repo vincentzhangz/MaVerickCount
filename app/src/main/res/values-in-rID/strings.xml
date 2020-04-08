@@ -16,4 +16,5 @@
     <string name="profile">Profil</string>
     <string name="chat">Chat</string>
     <string name="friend">Teman</string>
+    <string name="home">Beranda</string>
 </resources>
