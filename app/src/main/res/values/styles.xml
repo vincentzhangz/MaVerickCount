@@ -10,6 +10,7 @@
         <item name="textColor">@color/textDay</item>
         <item name="messageSend">@color/messageSendDay</item>
         <item name="messageReceive">@color/messageReceiveDay</item>
+        <item name="balance">@color/balanceDay</item>
     </style>
 
     <style name="AppThemeDark" parent="Theme.AppCompat.DayNight.NoActionBar">
@@ -19,6 +20,7 @@
         <item name="textColor">@color/textDark</item>
         <item name="messageSend">@color/messageSendDark</item>
         <item name="messageReceive">@color/messageReceiveDark</item>
+        <item name="balance">@color/balanceDark</item>
     </style>
 
 </resources>

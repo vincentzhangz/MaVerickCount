@@ -11,4 +11,6 @@
     <color name="messageReceiveDay">#f0f0f0</color>
     <color name="messageSendDark">#00579A</color>
     <color name="messageReceiveDark">#000000</color>
+    <color name="balanceDay">#DDDDDD</color>
+    <color name="balanceDark">#434343</color>
 </resources>

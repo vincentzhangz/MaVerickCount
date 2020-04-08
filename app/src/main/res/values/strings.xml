@@ -15,8 +15,8 @@
     <string name="profile">Profile</string>
     <string name="chat">Chat</string>
     <string name="friend">Friend</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="home">Home</string>
+    <string name="balance">Balance</string>
+    <string name="lang">Languages</string>
 
 </resources>

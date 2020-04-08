@@ -7,5 +7,6 @@
         <attr name="buttonColor" format="color" />
         <attr name="messageSend" format="color" />
         <attr name="messageReceive" format="color" />
+        <attr name="balance" format="color" />
     </declare-styleable>
 </resources>

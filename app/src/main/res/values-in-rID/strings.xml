@@ -17,4 +17,6 @@
     <string name="chat">Chat</string>
     <string name="friend">Teman</string>
     <string name="home">Beranda</string>
+    <string name="balance">Saldo</string>
+    <string name="lang">Bahasa</string>
 </resources>
