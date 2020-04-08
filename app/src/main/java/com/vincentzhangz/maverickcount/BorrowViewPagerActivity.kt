@@ -22,7 +22,6 @@ class BorrowViewPagerActivity : Fragment() {
         adapter.add(GlobalBorrowActivity(),"Global Borrow")
         adapter.add(PersonalBorrowActivity(),"Personal Borrow")
         rootView.borrow_view_pager.adapter=adapter
-//        Log.d("vp",adapter.count.toString())
         rootView.borrow_tab.setupWithViewPager(rootView.borrow_view_pager)
         return rootView
     }

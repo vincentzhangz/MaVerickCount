@@ -58,6 +58,7 @@ class FriendFragment : Fragment() {
                     item as FriendItem
                     val bundle = Bundle()
                     bundle.putString("name", item.friend.name)
+                    bundle.putString("uid",item.friend.uid)
                     val friendProfile = FriendProfile()
                     friendProfile.arguments = bundle
 

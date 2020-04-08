@@ -65,7 +65,7 @@ class FriendRequestHandlerActivity : Fragment() {
                     dialogBuilder.setCancelable(false)
 
                     dialogBuilder.setPositiveButton(
-                        "Request"
+                        "Accept"
                     ) { dialog, which ->
                         dbFriend.child("name")
                             .addValueEventListener(object :ValueEventListener{
@@ -92,6 +92,11 @@ class FriendRequestHandlerActivity : Fragment() {
 
                             })
 
+                        database.getReference("friend-request").child(data.uid).removeValue()
+                    }
+                    dialogBuilder.setNeutralButton(
+                        "Decline"
+                    ) { dialog, which ->
                         database.getReference("friend-request").child(data.uid).removeValue()
                     }
                     dialogBuilder.setNegativeButton(

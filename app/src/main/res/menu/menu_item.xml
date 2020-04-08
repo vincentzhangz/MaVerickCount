@@ -11,6 +11,15 @@
         android:id="@+id/borrow_page"
         android:title="Borrow Page" />
     <item
+        android:id="@+id/pending_request_page"
+        android:title="Pending Request" />
+    <item
+        android:id="@+id/ongoing_page"
+        android:title="Ongoing" />
+    <item
+        android:id="@+id/history_page"
+        android:title="History" />
+    <item
         android:id="@+id/chat"
         android:icon="@drawable/chat_icon_foreground"
         android:title="@string/chat" />

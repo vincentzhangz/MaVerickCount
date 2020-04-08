@@ -9,12 +9,16 @@ import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.friend_item.view.*
 
-class User(val uid: String, val name: String, val friends: ArrayList<Friend>) {
-    constructor() : this("", "", ArrayList())
+class User(val uid: String, val name: String,val balance:Int, val status: Status, val friends: ArrayList<Friend>) {
+    constructor() : this("", "",0,Status(), ArrayList())
 }
 
-class UserData(val uid: String, val name: String, val friends: HashMap<String, Friend>) {
-    constructor() : this("", "", HashMap())
+class Status(val paid:Int, val unpaid:Int, val late:Int){
+    constructor():this(0,0,0)
+}
+
+class UserData(val uid: String, val name: String,val balance:Int,  val status: Status, val friends: HashMap<String, Friend>) {
+    constructor() : this("", "",0, Status(),HashMap())
 }
 
 class Friend(val uid: String, val name: String) {

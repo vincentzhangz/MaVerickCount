@@ -115,6 +115,21 @@ class MainActivity : AppCompatActivity() {
                         .replace(R.id.fragment_container, BorrowViewPagerActivity())
                         .addToBackStack(null).commit()
                 }
+                R.id.pending_request_page -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, RequestPendingActivity())
+                        .addToBackStack(null).commit()
+                }
+                R.id.ongoing_page -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, OngoingActivity())
+                        .addToBackStack(null).commit()
+                }
+                R.id.history_page -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, HistoryActivity())
+                        .addToBackStack(null).commit()
+                }
                 R.id.borrow_request_page -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, BorrowRequestViewPagerActivity())

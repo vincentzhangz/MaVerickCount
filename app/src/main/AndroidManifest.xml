@@ -8,6 +8,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".HistoryLend"></activity>
+        <activity android:name=".HistoryBorrow" />
+        <activity android:name=".HistoryActivity" />
+        <activity android:name=".OngoingLend" />
+        <activity android:name=".OngoingBorrow" />
+        <activity android:name=".OngoingActivity" />
+        <activity android:name=".LendPendingActivity" />
+        <activity android:name=".BorrowPendingActivity" />
+        <activity android:name=".RequestPendingActivity" />
 
         <service
             android:name=".services.MyFirebaseMessagingService"
@@ -25,12 +34,10 @@
         <activity android:name=".BorrowViewPagerActivity" />
         <activity android:name=".LenderRequestActivity" />
         <activity android:name=".PersonalBorrowActivity" />
-        <activity android:name=".BorrowRequestHandlerActivity" />
         <activity android:name=".GlobalBorrowActivity" />
         <activity android:name=".BorrowRequestActivity" />
         <activity android:name=".ChatDetailActivity" />
         <activity android:name=".ChatActivity" />
-        <activity android:name=".LendBrowseActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity">

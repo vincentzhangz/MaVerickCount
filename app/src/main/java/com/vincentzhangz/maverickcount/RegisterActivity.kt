@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.vincentzhangz.maverickcount.models.Status
 import com.vincentzhangz.maverickcount.models.User
 import com.vincentzhangz.maverickcount.utilities.SystemUtility.Companion.toast
 import kotlinx.android.synthetic.main.activity_register.*
@@ -40,7 +41,7 @@ class RegisterActivity : AppCompatActivity() {
                         sharedPreferences.edit().putString("userId", user?.uid).apply()
                         database.getReference("users").child(user!!.uid)
                             .setValue(
-                                user.email?.let { User(user.uid, it, ArrayList()) }
+                                user.email?.let { User(user.uid, it,0, Status(0,0,0), ArrayList()) }
                             )
                         toast(this, "Register success.")
                         val intent = Intent(this, MainActivity::class.java)
