@@ -8,11 +8,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FriendRequestHandlerActivity"></activity>
-        <activity android:name=".FriendActivity" />
-        <activity android:name=".FriendRequestActivity" />
-        <activity android:name=".BorrowRequestViewPagerActivity" />
-        <activity android:name=".BorrowViewPagerActivity" />
 
         <service
             android:name=".services.MyFirebaseMessagingService"
@@ -23,6 +18,11 @@
             </intent-filter>
         </service>
 
+        <activity android:name=".FriendRequestHandlerActivity" />
+        <activity android:name=".FriendActivity" />
+        <activity android:name=".FriendRequestActivity" />
+        <activity android:name=".BorrowRequestViewPagerActivity" />
+        <activity android:name=".BorrowViewPagerActivity" />
         <activity android:name=".LenderRequestActivity" />
         <activity android:name=".PersonalBorrowActivity" />
         <activity android:name=".BorrowRequestHandlerActivity" />

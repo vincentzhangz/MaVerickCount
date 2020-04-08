@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
     android:orientation="vertical"
     tools:context=".BorrowViewPagerActivity">
 
@@ -11,13 +12,14 @@
         android:id="@+id/borrow_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="scrollable">
-    </com.google.android.material.tabs.TabLayout>
+        app:tabMode="scrollable"
+        app:tabTextColor="?attr/textColor" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/borrow_view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:background="?attr/backgroundColor">
 
     </androidx.viewpager.widget.ViewPager>
 </LinearLayout>

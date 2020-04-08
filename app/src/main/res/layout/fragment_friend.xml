@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
     tools:context=".FriendFragment">
-    
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/friend_list"
         android:layout_width="match_parent"

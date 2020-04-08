@@ -3,4 +3,12 @@
     <color name="colorPrimary">#2196F3</color>
     <color name="colorPrimaryDark">#1976D2</color>
     <color name="colorAccent">#4FC3F7</color>
+    <color name="backgroundDay">#ffffff</color>
+    <color name="backgroundDark">#121212</color>
+    <color name="textDay">#000000</color>
+    <color name="textDark">#ffffff</color>
+    <color name="messageSendDay">#bfbfbf</color>
+    <color name="messageReceiveDay">#f0f0f0</color>
+    <color name="messageSendDark">#00579A</color>
+    <color name="messageReceiveDark">#000000</color>
 </resources>

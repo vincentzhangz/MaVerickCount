@@ -5,9 +5,6 @@
         android:icon="@drawable/home_icon_foreground"
         android:title="@string/home" />
     <item
-        android:id="@+id/profile"
-        android:title="@string/profile" />
-    <item
         android:id="@+id/borrow_request_page"
         android:title="Borrow Request Page" />
     <item

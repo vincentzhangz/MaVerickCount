@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?attr/backgroundColor"
     android:gravity="right">
 
     <TextView
@@ -15,6 +16,7 @@
         android:paddingVertical="5dp"
         android:text="Right"
         android:textAlignment="textEnd"
+        android:textColor="?attr/textColor"
         android:textSize="@dimen/message_text_size" />
 
 </LinearLayout>

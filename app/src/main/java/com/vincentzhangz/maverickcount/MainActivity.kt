@@ -7,31 +7,35 @@ import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import com.bumptech.glide.Glide
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.storage.FirebaseStorage
 import com.vincentzhangz.maverickcount.models.NotificationModel
 import com.vincentzhangz.maverickcount.utilities.SystemUtility.Companion.toast
+import com.vincentzhangz.maverickcount.utilities.ThemeManager
 import com.vincentzhangz.maverickcount.utilities.UserUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.header.*
+import kotlinx.android.synthetic.main.header.view.*
 
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var notif: NotificationModel
     private lateinit var database: FirebaseDatabase
     private lateinit var userId: String
+    private val _databaseUrlPrefix = "gs://maverick-count.appspot.com/"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val themeManager = ThemeManager(this)
+        themeManager.loadTheme()
         database = FirebaseDatabase.getInstance()
-        FirebaseMessaging.getInstance().subscribeToTopic("/topics/topic")
-        notif = NotificationModel(this.applicationContext)
         val sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
         userId = sharedPreferences.getString("userId", "").toString()
 
@@ -63,6 +67,27 @@ class MainActivity : AppCompatActivity() {
 
             override fun onDrawerOpened(drawerView: View) {
                 super.onDrawerOpened(drawerView)
+
+                val storage = FirebaseStorage.getInstance()
+                val userId = UserUtil.getUserId(applicationContext)
+                val parsedUrl = _databaseUrlPrefix + "profile-image/$userId"
+                val gsReference =
+                    storage.getReferenceFromUrl(parsedUrl).downloadUrl.addOnSuccessListener {
+                        Glide.with(header_profile).load(it).circleCrop()
+                            .into(header_profile.profile_image)
+                    }.addOnFailureListener {
+                        Glide.with(header_profile)
+                            .load(R.drawable.person_icon_foreground)
+                            .circleCrop()
+                            .into(header_profile.profile_image)
+                    }
+
+                header_profile.setOnClickListener {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, Profile())
+                        .addToBackStack(null).commit()
+                    drawer.closeDrawer(GravityCompat.START)
+                }
             }
         }
         toggle.isDrawerIndicatorEnabled = true
@@ -78,11 +103,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.home -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, Home())
-                        .addToBackStack(null).commit()
-                }
-                R.id.profile -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, Profile())
                         .addToBackStack(null).commit()
                 }
                 R.id.chat -> {

@@ -3,30 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
+    android:background="?attr/backgroundColor"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/txv_borrower_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Borrower Name" />
+        android:text="Borrower Name"
+        android:textColor="?attr/textColor" />
 
     <TextView
         android:id="@+id/txv_borrow_request_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Request Date" />
+        android:text="Request Date"
+        android:textColor="?attr/textColor" />
 
     <TextView
         android:id="@+id/txv_borrow_deadline_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Deadline Date" />
+        android:text="Deadline Date"
+        android:textColor="?attr/textColor" />
 
     <TextView
         android:id="@+id/txv_borrow_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Amount" />
+        android:text="Amount"
+        android:textColor="?attr/textColor" />
 
 </LinearLayout>

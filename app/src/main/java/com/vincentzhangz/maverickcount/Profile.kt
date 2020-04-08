@@ -5,55 +5,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
+import com.vincentzhangz.maverickcount.utilities.UserUtil
+import kotlinx.android.synthetic.main.fragment_profile.view.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [Profile.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Profile : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    private val _databaseUrlPrefix = "gs://maverick-count.appspot.com/"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+
+        val rootView = inflater.inflate(R.layout.fragment_profile, container, false)
+        val storage = FirebaseStorage.getInstance()
+        val userId = UserUtil.getUserId(activity!!.applicationContext)
+        val parsedUrl = _databaseUrlPrefix + "profile-image/$userId"
+        val gsReference =
+            storage.getReferenceFromUrl(parsedUrl).downloadUrl.addOnSuccessListener {
+                Glide.with(rootView).load(it).circleCrop().into(rootView.profile_image)
+            }.addOnFailureListener {
+                Glide.with(rootView)
+                    .load(R.drawable.person_icon_foreground)
+                    .circleCrop()
+                    .into(rootView.profile_image)
+            }
+
+        return rootView
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Profile.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Profile().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 }

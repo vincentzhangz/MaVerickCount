@@ -14,6 +14,7 @@ import com.vincentzhangz.maverickcount.models.ChatDetailLeft
 import com.vincentzhangz.maverickcount.models.ChatDetailRight
 import com.vincentzhangz.maverickcount.models.MessageDetail
 import com.vincentzhangz.maverickcount.models.NotificationModel
+import com.vincentzhangz.maverickcount.utilities.ThemeManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_chat_detail.*
@@ -31,6 +32,8 @@ class ChatDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_detail)
+        val themeManager = ThemeManager(this)
+        themeManager.loadTheme()
         messageLength = 0
         database = FirebaseDatabase.getInstance()
         msgId = intent.getStringExtra("msgId")
