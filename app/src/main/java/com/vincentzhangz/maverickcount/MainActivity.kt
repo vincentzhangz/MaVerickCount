@@ -12,9 +12,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
-import com.vincentzhangz.maverickcount.models.NotificationModel
 import com.vincentzhangz.maverickcount.utilities.SystemUtility.Companion.toast
 import com.vincentzhangz.maverickcount.utilities.ThemeManager
 import com.vincentzhangz.maverickcount.utilities.UserUtil
@@ -28,8 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var database: FirebaseDatabase
     private lateinit var userId: String
     private val _databaseUrlPrefix = "gs://maverick-count.appspot.com/"
-
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -149,8 +146,10 @@ class MainActivity : AppCompatActivity() {
                     FirebaseDatabase.getInstance().getReference("users")
                         .child(UserUtil.getUserId(this.applicationContext))
                         .child("deviceId").setValue("")
-                    val sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
+                    var sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
                     sharedPreferences.edit().remove("userId").apply()
+                    sharedPreferences = getSharedPreferences("config", Context.MODE_PRIVATE)
+                    sharedPreferences.edit().remove("dark_mode").apply()
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                     toast(this, "Sign out success.")

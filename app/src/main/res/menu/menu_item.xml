@@ -6,10 +6,10 @@
         android:title="@string/home" />
     <item
         android:id="@+id/borrow_request_page"
-        android:title="Borrow Request Page" />
+        android:title="Borrow Request" />
     <item
         android:id="@+id/borrow_page"
-        android:title="Borrow Page" />
+        android:title="Borrow" />
     <item
         android:id="@+id/pending_request_page"
         android:title="Pending Request" />

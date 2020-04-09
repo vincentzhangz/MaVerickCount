@@ -1,8 +1,5 @@
 package com.vincentzhangz.maverickcount.models
 
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -15,7 +12,6 @@ import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.borrow_item.view.*
 import java.time.LocalDateTime
 import java.time.ZoneOffset
-import java.util.ArrayList
 
 class BorrowRequest(
     val borrower: String,

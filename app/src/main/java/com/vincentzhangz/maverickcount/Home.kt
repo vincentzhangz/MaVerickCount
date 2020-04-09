@@ -1,7 +1,6 @@
 package com.vincentzhangz.maverickcount
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,14 +30,14 @@ class Home : Fragment() {
 
     private fun getAdditionalData(view: View) {
         database.getReference("users").child(userId)
-            .addValueEventListener(object :ValueEventListener{
+            .addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {
                     TODO("Not yet implemented")
                 }
 
                 override fun onDataChange(ds: DataSnapshot) {
-                    val data=ds.getValue(UserData::class.java) as UserData
-                    view.balance.text="Balance: "+data.balance.toString()
+                    val data = ds.getValue(UserData::class.java) as UserData
+                    view.balance.text = data.balance.toString()
                 }
 
             })

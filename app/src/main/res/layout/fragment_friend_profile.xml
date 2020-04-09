@@ -11,28 +11,47 @@
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="40dp"
+        android:gravity="center"
         android:text="Name"
-        android:textColor="?attr/textColor" />
+        android:textColor="?attr/textColor"
+        android:textSize="25dp" />
 
     <TextView
         android:id="@+id/paid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Profile" />
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="Paid"
+        android:textColor="?attr/textColor" />
 
     <TextView
         android:id="@+id/unpaid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Profile" />
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="Unpaid"
+        android:textColor="?attr/textColor" />
 
     <TextView
         android:id="@+id/late"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="Late"
+        android:textColor="?attr/textColor" />
+
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pie_chart"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:layout_gravity="center"
-        android:text="Profile" />
+        android:background="?attr/backgroundColor"
+        android:padding="9dp" />
 
 </LinearLayout>

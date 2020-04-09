@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="backgroundColor">@color/backgroundDay</item>
         <item name="textColor">@color/textDay</item>
+        <item name="textHintColor">@color/textHintDay</item>
         <item name="messageSend">@color/messageSendDay</item>
         <item name="messageReceive">@color/messageReceiveDay</item>
         <item name="balance">@color/balanceDay</item>
@@ -18,6 +19,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="backgroundColor">@color/backgroundDark</item>
         <item name="textColor">@color/textDark</item>
+        <item name="textHintColor">@color/textHintDark</item>
         <item name="messageSend">@color/messageSendDark</item>
         <item name="messageReceive">@color/messageReceiveDark</item>
         <item name="balance">@color/balanceDark</item>
