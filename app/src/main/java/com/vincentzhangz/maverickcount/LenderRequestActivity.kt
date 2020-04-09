@@ -105,8 +105,24 @@ class LenderRequestActivity : Fragment() {
                         })
                     dialogBuilder.setNeutralButton("Reject",
                         DialogInterface.OnClickListener { dialog, which ->
+                            var borrowData = data.borrowData.borrowRequest
+                            database.getReference("users").child(borrowData.lender).child("balance")
+                                .addListenerForSingleValueEvent(object:ValueEventListener{
+                                    override fun onCancelled(p0: DatabaseError) {
+                                        TODO("Not yet implemented")
+                                    }
+
+                                    override fun onDataChange(ds: DataSnapshot) {
+                                        val currBalance=ds.getValue(Int::class.java) as Int
+                                        val newBalance=currBalance+borrowData.amount
+                                        Toast.makeText(context!!.applicationContext,borrowData.lender,Toast.LENGTH_SHORT).show()
+                                        database.getReference("users").child(borrowData.lender).child("balance").setValue(newBalance)
+                                    }
+
+                                })
+
                             data.borrowData.borrowRequest.lender=""
-                            val borrowData = data.borrowData.borrowRequest
+                            borrowData = data.borrowData.borrowRequest
                             database.getReference("borrow-request").child(data.borrowData.uid)
                                 .setValue(
                                     BorrowRequest(
@@ -119,19 +135,7 @@ class LenderRequestActivity : Fragment() {
                                 )
                             database.getReference("lend-request").child(data.borrowData.uid)
                                 .removeValue()
-                            database.getReference("users").child(borrowData.lender).child("balance")
-                                .addListenerForSingleValueEvent(object:ValueEventListener{
-                                    override fun onCancelled(p0: DatabaseError) {
-                                        TODO("Not yet implemented")
-                                    }
 
-                                    override fun onDataChange(ds: DataSnapshot) {
-                                        val currBalance=ds.getValue(Int::class.java) as Int
-                                        val newBalance=currBalance+borrowData.amount
-                                        database.getReference("users").child(borrowData.lender).child("balance").setValue(currBalance)
-                                    }
-
-                                })
                             reload()
                         })
                     dialogBuilder.setNegativeButton("Cancel",
