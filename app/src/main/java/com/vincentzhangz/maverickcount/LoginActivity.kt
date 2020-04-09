@@ -12,7 +12,10 @@ import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.vincentzhangz.maverickcount.models.Status
 import com.vincentzhangz.maverickcount.models.User
 import com.vincentzhangz.maverickcount.utilities.OtherUtil
@@ -77,16 +80,27 @@ class LoginActivity : AppCompatActivity() {
                 val database = FirebaseDatabase.getInstance()
                 account.id?.let { it1 ->
                     database.getReference("users").child(it1)
-                        .setValue(
-                            account.id?.let { it2 ->
-                                account.email?.let { it3 ->
-                                    User(
-                                        it2,
-                                        it3, 0, Status(0, 0, 0), ArrayList()
+                        .addListenerForSingleValueEvent(object:ValueEventListener{
+                            override fun onCancelled(p0: DatabaseError) {
+                                TODO("Not yet implemented")
+                            }
+
+                            override fun onDataChange(ds: DataSnapshot) {
+                                if(ds==null){
+                                    database.getReference("users").child(it1).setValue(
+                                        account.id?.let { it2 ->
+                                            account.email?.let { it3 ->
+                                                User(
+                                                    it2,
+                                                    it3, 0, Status(0, 0, 0), ArrayList()
+                                                )
+                                            }
+                                        }
                                     )
                                 }
                             }
-                        )
+
+                        })
                 }
             }
 
