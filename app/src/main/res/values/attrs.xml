@@ -9,5 +9,6 @@
         <attr name="messageSend" format="color" />
         <attr name="messageReceive" format="color" />
         <attr name="balance" format="color" />
+        <attr name="cardViewBackgroundColor" format="color" />
     </declare-styleable>
 </resources>

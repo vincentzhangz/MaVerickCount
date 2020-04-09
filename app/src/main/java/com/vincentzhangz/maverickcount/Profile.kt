@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -15,7 +17,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.vincentzhangz.maverickcount.models.Status
-import com.vincentzhangz.maverickcount.utilities.SystemUtility
 import com.vincentzhangz.maverickcount.utilities.UserUtil
 import kotlinx.android.synthetic.main.fragment_friend_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
@@ -44,14 +45,17 @@ class Profile : Fragment() {
 
             override fun onDataChange(ds: DataSnapshot) {
                 rootView.name.text = ds.getValue(String()::class.java).toString()
-                SystemUtility.toast(rootView.context, ds.getValue(String()::class.java).toString())
             }
 
         })
         val storage = FirebaseStorage.getInstance()
         val parsedUrl = _databaseUrlPrefix + "profile-image/$userId"
         storage.getReferenceFromUrl(parsedUrl).downloadUrl.addOnSuccessListener {
-            Glide.with(rootView).load(it).circleCrop().into(rootView.profile_image)
+            val requestOptions = RequestOptions().diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+            Glide.with(rootView).load(it)
+                .thumbnail(Glide.with(rootView).load(R.drawable.person_icon_foreground))
+                .apply(requestOptions).circleCrop()
+                .into(rootView.profile_image)
         }.addOnFailureListener {
             Glide.with(rootView)
                 .load(R.drawable.person_icon_foreground)

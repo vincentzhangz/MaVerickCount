@@ -70,19 +70,44 @@ class PersonalBorrowActivity : Fragment() {
                         DialogInterface.OnClickListener { dialog, which ->
 //                        Toast.makeText(applicationContext,data.borrowData.borrowRequest.borrower,Toast.LENGTH_SHORT).show()
                             val borrowData = data.borrowData.borrowRequest
-                            database.getReference("borrow").child(data.borrowData.uid)
-                                .setValue(
-                                    BorrowRequest(
-                                        borrowData.borrower,
-                                        borrowData.lender,
-                                        borrowData.amount,
-                                        borrowData.requestDate,
-                                        borrowData.deadlineDate
-                                    )
-                                )
-                            database.getReference("borrow-request").child(data.borrowData.uid)
-                                .removeValue()
-                            database.getReference("chats").push().setValue(MessageHead(borrowData.borrower,borrowData.lender))
+
+                            database.getReference("users").child(borrowData.lender).child("balance")
+                                .addListenerForSingleValueEvent(object : ValueEventListener {
+                                    override fun onCancelled(p0: DatabaseError) {
+                                        TODO("Not yet implemented")
+                                    }
+
+                                    override fun onDataChange(ds: DataSnapshot) {
+                                        val currBalance = ds.getValue(Int::class.java) as Int
+                                        if (currBalance >= borrowData.amount) {
+                                            val newBalance: Long = currBalance - borrowData.amount
+                                            database.getReference("users").child(borrowData.lender)
+                                                .child("balance").setValue(newBalance)
+                                            database.getReference("borrow")
+                                                .child(data.borrowData.uid)
+                                                .setValue(
+                                                    BorrowRequest(
+                                                        borrowData.borrower,
+                                                        borrowData.lender,
+                                                        borrowData.amount,
+                                                        borrowData.requestDate,
+                                                        borrowData.deadlineDate
+                                                    )
+                                                )
+                                            database.getReference("borrow-request")
+                                                .child(data.borrowData.uid)
+                                                .removeValue()
+                                            database.getReference("chats").push()
+                                                .setValue(
+                                                    MessageHead(
+                                                        borrowData.borrower,
+                                                        borrowData.lender
+                                                    )
+                                                )
+                                        }
+                                    }
+
+                                })
                             reload()
                         })
                     dialogBuilder.setNeutralButton("Reject",
@@ -105,7 +130,7 @@ class PersonalBorrowActivity : Fragment() {
         })
     }
 
-    fun reload(){
+    fun reload() {
         this.fragmentManager!!.beginTransaction().detach(this).attach(this).commit()
     }
 

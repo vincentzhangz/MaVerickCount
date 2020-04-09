@@ -5,9 +5,21 @@
     android:background="?attr/backgroundColor"
     android:gravity="left">
 
+    <ImageView
+        android:id="@+id/receiver_image"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:layout_margin="9dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/profile_image_background"
+        android:padding="3dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/person_icon_foreground" />
+
     <TextView
         android:id="@+id/txv_msg_detail"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/message_receive_bubble"

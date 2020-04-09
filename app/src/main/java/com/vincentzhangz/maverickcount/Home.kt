@@ -32,7 +32,6 @@ class Home : Fragment() {
         userId = UserUtil.getUserId(this.activity!!.applicationContext)
         getAdditionalData(rootView)
 
-        var topup: Boolean = false
 
         rootView.top_up_button.setOnClickListener {
             val builder: AlertDialog.Builder = AlertDialog.Builder(rootView.context)
@@ -43,26 +42,22 @@ class Home : Fragment() {
             builder.setPositiveButton(
                 "OK",
                 DialogInterface.OnClickListener { dialog, which ->
-                    topup = true
                     var balance: Int = 0
                     database.getReference("users").child(userId)
-                        .addValueEventListener(object : ValueEventListener {
+                        .addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onCancelled(p0: DatabaseError) {
                                 TODO("Not yet implemented")
                             }
 
                             override fun onDataChange(ds: DataSnapshot) {
-                                if (topup) {
-                                    val data = ds.getValue(UserData::class.java) as UserData
-                                    balance = data.balance
-                                    val inputBalance: String = input.text.toString()
-                                    balance += inputBalance.toInt()
-                                    FirebaseDatabase.getInstance().getReference("users")
-                                        .child(userId)
-                                        .child("balance").setValue(balance)
-                                    toast(rootView.context, "Top up success")
-                                    topup = false
-                                }
+                                val data = ds.getValue(UserData::class.java) as UserData
+                                balance = data.balance
+                                val inputBalance: String = input.text.toString()
+                                balance += inputBalance.toInt()
+                                FirebaseDatabase.getInstance().getReference("users")
+                                    .child(userId)
+                                    .child("balance").setValue(balance)
+                                toast(rootView.context, "Top up success")
                             }
                         })
                 })
@@ -70,7 +65,6 @@ class Home : Fragment() {
                 "Cancel",
                 DialogInterface.OnClickListener { dialog, which ->
                     dialog.cancel()
-                    topup = false
                 })
 
             builder.show()

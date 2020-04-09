@@ -13,9 +13,13 @@
     <color name="messageReceiveDay">#f0f0f0</color>
     <color name="messageSendDark">#00579A</color>
     <color name="messageReceiveDark">#000000</color>
+    <color name="cardBackgroundColorDay">#F3F3F3</color>
+    <color name="cardBackgroundColorDark">#222222</color>
     <color name="balanceDay">#DDDDDD</color>
     <color name="balanceDark">#434343</color>
     <color name="paid">#008A1C</color>
     <color name="unpaid">#0035C5</color>
     <color name="late">#870000</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
 </resources>

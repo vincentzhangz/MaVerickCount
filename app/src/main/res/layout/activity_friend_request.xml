@@ -11,6 +11,7 @@
         android:id="@+id/et_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:hint="Input Name"
         android:textColor="?attr/textColor" />
 
@@ -18,6 +19,7 @@
         android:id="@+id/btn_search_friend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:text="search"
         android:textColor="?attr/textColor" />
 

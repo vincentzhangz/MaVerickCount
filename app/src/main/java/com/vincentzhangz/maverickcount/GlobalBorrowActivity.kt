@@ -2,11 +2,9 @@ package com.vincentzhangz.maverickcount
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,10 +12,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.vincentzhangz.maverickcount.models.BorrowItem
-import com.vincentzhangz.maverickcount.models.BorrowRequest
-import com.vincentzhangz.maverickcount.models.BorrowRequestData
-import com.vincentzhangz.maverickcount.models.Status
+import com.vincentzhangz.maverickcount.models.*
 import com.vincentzhangz.maverickcount.utilities.UserUtil
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
@@ -74,22 +69,43 @@ class GlobalBorrowActivity : Fragment() {
                         "Accept"
                     ) { dialog, which ->
 //                        Toast.makeText(applicationContext,data.borrowData.borrowRequest.borrower,Toast.LENGTH_SHORT).show()
-                        val borrowData = data.borrowData.borrowRequest
-                        database.getReference("lend-request").child(data.borrowData.uid)
-                            .setValue(
-                                BorrowRequest(
-                                    borrowData.borrower,
-                                    UserUtil.getUserId(view.context),
-                                    borrowData.amount,
-                                    borrowData.requestDate,
-                                    borrowData.deadlineDate
-                                )
-                            )
-                        database.getReference("borrow-request").child(data.borrowData.uid)
-                            .removeValue()
-                        reload()
+
+                        database.getReference("users").child(userId)
+                            .addListenerForSingleValueEvent(object : ValueEventListener {
+                                override fun onCancelled(p0: DatabaseError) {
+                                    TODO("Not yet implemented")
+                                }
+
+                                override fun onDataChange(ds: DataSnapshot) {
+                                    val d = ds.getValue(UserData::class.java) as UserData
+
+                                    val borrowData = data.borrowData.borrowRequest
+                                    if (d.balance >= borrowData.amount) {
+                                        val newBalance:Long=d.balance-borrowData.amount
+                                        database.getReference("users").child(userId).child("balance").setValue(newBalance)
+                                        database.getReference("lend-request")
+                                            .child(data.borrowData.uid)
+                                            .setValue(
+                                                BorrowRequest(
+                                                    borrowData.borrower,
+                                                    UserUtil.getUserId(view.context),
+                                                    borrowData.amount,
+                                                    borrowData.requestDate,
+                                                    borrowData.deadlineDate
+                                                )
+                                            )
+                                        database.getReference("borrow-request")
+                                            .child(data.borrowData.uid)
+                                            .removeValue()
+                                        reload()
+                                    }
+
+                                }
+                            })
+
+
                     }
-                    dialogBuilder.setNeutralButton("Show Status",null)
+                    dialogBuilder.setNeutralButton("Show Status", null)
                     dialogBuilder.setNegativeButton(
                         "Cancel"
                     ) { dialog, which ->
@@ -98,18 +114,24 @@ class GlobalBorrowActivity : Fragment() {
                     val dialog = dialogBuilder.create()
                     dialog.setTitle("Loan Confirmation")
                     dialog.show()
-                    dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener{
-                        val borrowerId=data.borrowData.borrowRequest.borrower
+                    dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener {
+                        val borrowerId = data.borrowData.borrowRequest.borrower
                         database.getReference("users").child(borrowerId).child("status")
-                            .addValueEventListener(object :ValueEventListener{
+                            .addValueEventListener(object : ValueEventListener {
                                 override fun onCancelled(p0: DatabaseError) {
                                     TODO("Not yet implemented")
                                 }
+
                                 override fun onDataChange(ds: DataSnapshot) {
-                                    val status=ds.getValue(Status::class.java) as Status
-                                    val msg="Paid : "+status.paid+"\nUnpaid : "+status.unpaid+"\nLate : "+status.late
+                                    val status = ds.getValue(Status::class.java) as Status
+                                    val msg =
+                                        "Paid : " + status.paid + "\nUnpaid : " + status.unpaid + "\nLate : " + status.late
                                     dialog.setMessage(msg)
-                                    Toast.makeText(context!!.applicationContext,msg,Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        context!!.applicationContext,
+                                        msg,
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
                             })
                     }
@@ -120,7 +142,7 @@ class GlobalBorrowActivity : Fragment() {
         })
     }
 
-    private fun reload(){
+    private fun reload() {
         this.fragmentManager!!.beginTransaction().detach(this).attach(this).commit()
     }
 }

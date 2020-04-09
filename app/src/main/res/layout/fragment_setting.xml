@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Setting"
+        android:text="@string/setting"
         android:textColor="?attr/textColor"
         android:textSize="30dp" />
 
@@ -24,7 +24,7 @@
         android:layout_gravity="center"
         android:layout_marginHorizontal="10dp"
         android:layout_marginVertical="15dp"
-        android:text="Dark Mode"
+        android:text="@string/dark_mode"
         android:textColor="?attr/textColor" />
 
     <Spinner

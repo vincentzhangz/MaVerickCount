@@ -83,9 +83,9 @@ class ChatDetailActivity : AppCompatActivity() {
 //                    Log.d("msg",it.toString())
                     val messages = it.getValue(MessageDetail::class.java)
                     if (messages!!.user == userId) {
-                        adapter.add(ChatDetailRight(messages.msg))
+                        adapter.add(ChatDetailRight(messages.msg, userId))
                     } else {
-                        adapter.add(ChatDetailLeft(messages.msg))
+                        adapter.add(ChatDetailLeft(messages.msg, messages.user))
                     }
                     messageLength++
                 }

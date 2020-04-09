@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.vincentzhangz.maverickcount.models.Status
 import com.vincentzhangz.maverickcount.models.User
+import com.vincentzhangz.maverickcount.models.UserData
 import com.vincentzhangz.maverickcount.utilities.OtherUtil
 import com.vincentzhangz.maverickcount.utilities.SystemUtility.Companion.toast
 import kotlinx.android.synthetic.main.activity_login.*
@@ -75,18 +76,18 @@ class LoginActivity : AppCompatActivity() {
             val account = completedTask!!.getResult(ApiException::class.java)
 //            toast(this, account?.id.toString())
             toast(this, "Login success.")
-            OtherUtil.setUserToken(account?.id.toString())
             account!!.id?.let {
                 val database = FirebaseDatabase.getInstance()
                 account.id?.let { it1 ->
                     database.getReference("users").child(it1)
-                        .addListenerForSingleValueEvent(object:ValueEventListener{
+                        .addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onCancelled(p0: DatabaseError) {
                                 TODO("Not yet implemented")
                             }
 
                             override fun onDataChange(ds: DataSnapshot) {
-                                if(ds==null){
+                                if (ds.getValue(UserData::class.java) == null) {
+                                    toast(applicationContext, "Create New")
                                     database.getReference("users").child(it1).setValue(
                                         account.id?.let { it2 ->
                                             account.email?.let { it3 ->
@@ -103,7 +104,7 @@ class LoginActivity : AppCompatActivity() {
                         })
                 }
             }
-
+            OtherUtil.setUserToken(account?.id.toString())
             val sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
             sharedPreferences.edit().putString("userId", account?.id).apply()
             val intent = Intent(this, MainActivity::class.java)
