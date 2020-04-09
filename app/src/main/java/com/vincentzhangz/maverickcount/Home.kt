@@ -64,7 +64,6 @@ class Home : Fragment() {
                                     topup = false
                                 }
                             }
-
                         })
                 })
             builder.setNegativeButton(

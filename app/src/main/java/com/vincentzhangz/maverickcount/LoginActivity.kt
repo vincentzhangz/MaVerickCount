@@ -12,6 +12,9 @@ import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.vincentzhangz.maverickcount.models.Status
+import com.vincentzhangz.maverickcount.models.User
 import com.vincentzhangz.maverickcount.utilities.OtherUtil
 import com.vincentzhangz.maverickcount.utilities.SystemUtility.Companion.toast
 import kotlinx.android.synthetic.main.activity_login.*
@@ -70,6 +73,23 @@ class LoginActivity : AppCompatActivity() {
 //            toast(this, account?.id.toString())
             toast(this, "Login success.")
             OtherUtil.setUserToken(account?.id.toString())
+            account!!.id?.let {
+                val database = FirebaseDatabase.getInstance()
+                account.id?.let { it1 ->
+                    database.getReference("users").child(it1)
+                        .setValue(
+                            account.id?.let { it2 ->
+                                account.email?.let { it3 ->
+                                    User(
+                                        it2,
+                                        it3, 0, Status(0, 0, 0), ArrayList()
+                                    )
+                                }
+                            }
+                        )
+                }
+            }
+
             val sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
             sharedPreferences.edit().putString("userId", account?.id).apply()
             val intent = Intent(this, MainActivity::class.java)

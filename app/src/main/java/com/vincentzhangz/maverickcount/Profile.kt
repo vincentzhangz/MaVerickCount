@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.vincentzhangz.maverickcount.models.Status
+import com.vincentzhangz.maverickcount.utilities.SystemUtility
 import com.vincentzhangz.maverickcount.utilities.UserUtil
 import kotlinx.android.synthetic.main.fragment_friend_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
@@ -35,6 +36,7 @@ class Profile : Fragment() {
         userId = UserUtil.getUserId(activity!!.applicationContext)
 
         val db = database.getReference("users").child(userId).child("name")
+
         db.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 TODO("Not yet implemented")
@@ -42,6 +44,7 @@ class Profile : Fragment() {
 
             override fun onDataChange(ds: DataSnapshot) {
                 rootView.name.text = ds.getValue(String()::class.java).toString()
+                SystemUtility.toast(rootView.context, ds.getValue(String()::class.java).toString())
             }
 
         })
