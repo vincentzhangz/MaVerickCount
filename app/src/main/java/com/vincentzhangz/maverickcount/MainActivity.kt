@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var database: FirebaseDatabase
     private lateinit var userId: String
     private val _databaseUrlPrefix = "gs://maverick-count.appspot.com/"
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
