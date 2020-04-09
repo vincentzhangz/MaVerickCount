@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.vincentzhangz.maverickcount.models.*
+import com.vincentzhangz.maverickcount.utilities.SystemUtility
 import com.vincentzhangz.maverickcount.utilities.UserUtil
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
@@ -81,8 +82,9 @@ class GlobalBorrowActivity : Fragment() {
 
                                     val borrowData = data.borrowData.borrowRequest
                                     if (d.balance >= borrowData.amount) {
-                                        val newBalance:Long=d.balance-borrowData.amount
-                                        database.getReference("users").child(userId).child("balance").setValue(newBalance)
+                                        val newBalance: Long = d.balance - borrowData.amount
+                                        database.getReference("users").child(userId)
+                                            .child("balance").setValue(newBalance)
                                         database.getReference("lend-request")
                                             .child(data.borrowData.uid)
                                             .setValue(
@@ -98,6 +100,8 @@ class GlobalBorrowActivity : Fragment() {
                                             .child(data.borrowData.uid)
                                             .removeValue()
                                         reload()
+                                    } else {
+                                        SystemUtility.toast(context!!, "Not enough Balance")
                                     }
 
                                 }

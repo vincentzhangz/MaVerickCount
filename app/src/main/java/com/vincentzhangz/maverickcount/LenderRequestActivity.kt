@@ -117,11 +117,6 @@ class LenderRequestActivity : Fragment() {
                                     override fun onDataChange(ds: DataSnapshot) {
                                         val currBalance = ds.getValue(Int::class.java) as Int
                                         val newBalance = currBalance + borrowData.amount
-                                        Toast.makeText(
-                                            context!!.applicationContext,
-                                            borrowData.lender,
-                                            Toast.LENGTH_SHORT
-                                        ).show()
                                         database.getReference("users").child(borrowData.lender)
                                             .child("balance").setValue(newBalance)
 

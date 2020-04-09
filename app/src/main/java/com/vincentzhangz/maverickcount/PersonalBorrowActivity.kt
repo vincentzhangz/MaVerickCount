@@ -17,6 +17,7 @@ import com.vincentzhangz.maverickcount.models.BorrowItem
 import com.vincentzhangz.maverickcount.models.BorrowRequest
 import com.vincentzhangz.maverickcount.models.BorrowRequestData
 import com.vincentzhangz.maverickcount.models.MessageHead
+import com.vincentzhangz.maverickcount.utilities.SystemUtility
 import com.vincentzhangz.maverickcount.utilities.UserUtil
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
@@ -104,6 +105,8 @@ class PersonalBorrowActivity : Fragment() {
                                                         borrowData.lender
                                                     )
                                                 )
+                                        } else {
+                                            SystemUtility.toast(context!!, "Not enough Balance")
                                         }
                                     }
 
