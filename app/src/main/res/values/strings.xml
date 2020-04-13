@@ -19,5 +19,6 @@
     <string name="balance">Balance</string>
     <string name="lang">Languages</string>
     <string name="dark_mode">Dark Mode</string>
+    <string name="no_data" >There is no data</string>
 
 </resources>

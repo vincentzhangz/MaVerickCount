@@ -32,6 +32,8 @@ class FriendRequestHandlerActivity : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.activity_friend_request_handler, container, false)
+        rootView.empty_error.visibility=View.VISIBLE
+        rootView.recyclerview_friend_request_handler.visibility=View.GONE
         userId = UserUtil.getUserId(this.activity!!.applicationContext)
         rootView.recyclerview_friend_request_handler.layoutManager=LinearLayoutManager(activity)
 
@@ -49,11 +51,18 @@ class FriendRequestHandlerActivity : Fragment() {
 
             override fun onDataChange(ds: DataSnapshot) {
                 val adapter = GroupAdapter<ViewHolder>()
+                var dataExists=false
                 ds.children.forEach {
                     var data=it.getValue(FriendRequest::class.java) as FriendRequest
                     if(data.to==userId){
                         adapter.add(FriendRequestHandler(it.key.toString(),data))
+                        dataExists=true
                     }
+                }
+
+                if(dataExists){
+                    view.recyclerview_friend_request_handler.visibility=View.VISIBLE
+                    view.empty_error.visibility=View.GONE
                 }
 
                 adapter.setOnItemClickListener { item, view ->

@@ -30,7 +30,8 @@ class ChatActivity : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.activity_chat, container, false)
-
+        rootView.empty_error.visibility=View.VISIBLE
+        rootView.recyclerview_message.visibility=View.GONE
         getUserId()
         rootView.recyclerview_message.layoutManager = LinearLayoutManager(activity)
         fetchMessage(rootView)
@@ -50,12 +51,18 @@ class ChatActivity : Fragment() {
 
             override fun onDataChange(ds: DataSnapshot) {
                 val adapter = GroupAdapter<ViewHolder>()
+                var dataExists=false
                 ds.children.forEach {
                     val messages = it.getValue(MessageHead::class.java)
                     val data = messages as MessageHead
                     if (data.user1 == userId || data.user2 == userId) {
                         adapter.add(MessageHeader(it.key.toString(),messages))
+                        dataExists=true
                     }
+                }
+                if(dataExists){
+                    v.empty_error.visibility=View.GONE
+                    v.recyclerview_message.visibility=View.VISIBLE
                 }
 
                 adapter.setOnItemClickListener { item, view ->

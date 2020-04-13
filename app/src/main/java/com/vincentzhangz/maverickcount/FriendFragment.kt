@@ -27,6 +27,8 @@ class FriendFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_friend, container, false)
+        rootView.empty_error.visibility=View.VISIBLE
+        rootView.friend_list.visibility=View.GONE
         getUserId()
         rootView.friend_list.layoutManager = LinearLayoutManager(activity)
         fetchFriend(rootView)
@@ -47,11 +49,17 @@ class FriendFragment : Fragment() {
 
             override fun onDataChange(ds: DataSnapshot) {
                 val adapter = GroupAdapter<ViewHolder>()
+                var dataExists=false
                 ds.children.forEach {
                     val friend = it.getValue(FriendModel::class.java)
                     friend as FriendModel
 //                    Log.d("friend", data.name)
                     adapter.add(FriendItem(friend))
+                    dataExists=true
+                }
+                if(dataExists){
+                    v.friend_list.visibility=View.VISIBLE
+                    v.empty_error.visibility=View.GONE
                 }
 
                 adapter.setOnItemClickListener { item, _ ->

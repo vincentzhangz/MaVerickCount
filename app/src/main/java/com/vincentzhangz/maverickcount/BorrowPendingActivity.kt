@@ -20,7 +20,6 @@ import com.vincentzhangz.maverickcount.utilities.UserUtil
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_borrow_pending.view.*
-import kotlinx.android.synthetic.main.activity_global_borrow.view.*
 
 class BorrowPendingActivity : Fragment() {
     private val database = FirebaseDatabase.getInstance()
@@ -32,6 +31,7 @@ class BorrowPendingActivity : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.activity_borrow_pending, container, false)
+        rootView.empty_error.visibility=View.GONE
         userId = UserUtil.getUserId(this.activity!!.applicationContext)
         rootView.recyclerview_pending_borrow.layoutManager = LinearLayoutManager(activity)
         fetchBorrowPending(rootView)
@@ -62,6 +62,8 @@ class BorrowPendingActivity : Fragment() {
                     }
                 }
                 if (!dataExist) {
+                    view.recyclerview_pending_borrow.visibility=View.GONE
+                    view.empty_error.visibility=View.VISIBLE
                     return
                 }
                 adapter.setOnItemClickListener { item, view ->

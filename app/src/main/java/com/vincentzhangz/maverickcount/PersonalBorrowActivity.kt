@@ -33,6 +33,8 @@ class PersonalBorrowActivity : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.activity_personal_borrow, container, false)
+        rootView.empty_error.visibility=View.VISIBLE
+        rootView.recyclerview_personal_borrow.visibility=View.GONE
         userId = UserUtil.getUserId(this.activity!!.applicationContext)
         rootView.recyclerview_personal_borrow.layoutManager = LinearLayoutManager(activity)
         fetchBorrowData(rootView)
@@ -48,6 +50,7 @@ class PersonalBorrowActivity : Fragment() {
 
             override fun onDataChange(ds: DataSnapshot) {
                 val adapter = GroupAdapter<ViewHolder>()
+                var dataExists= false
 //                Log.d("borrow",ds.toString())
                 ds.children.forEach {
 //                    Log.d("borrow",it.key.toString())
@@ -60,7 +63,12 @@ class PersonalBorrowActivity : Fragment() {
                     } as BorrowRequestData
                     if (borrowData.borrowRequest.lender == userId) {
                         adapter.add(BorrowItem(borrowData))
+                        dataExists=true
                     }
+                }
+                if(dataExists){
+                    view.empty_error.visibility=View.GONE
+                    view.recyclerview_personal_borrow.visibility=View.VISIBLE
                 }
                 adapter.setOnItemClickListener { item, view ->
                     val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(view.context)

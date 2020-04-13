@@ -18,7 +18,6 @@ import com.vincentzhangz.maverickcount.models.BorrowRequestData
 import com.vincentzhangz.maverickcount.utilities.UserUtil
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
-import kotlinx.android.synthetic.main.activity_borrow_pending.view.*
 import kotlinx.android.synthetic.main.activity_lend_pending.view.*
 
 class LendPendingActivity : Fragment() {
@@ -31,6 +30,8 @@ class LendPendingActivity : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.activity_lend_pending, container, false)
+        rootView.recyclerview_pending_lend.visibility=View.VISIBLE
+        rootView.empty_error.visibility=View.GONE
         userId = UserUtil.getUserId(this.activity!!.applicationContext)
         rootView.recyclerview_pending_lend.layoutManager = LinearLayoutManager(activity)
         fetchLendPending(rootView)
@@ -61,6 +62,8 @@ class LendPendingActivity : Fragment() {
                     }
                 }
                 if (!dataExist) {
+                    view.recyclerview_pending_lend.visibility=View.GONE
+                    view.empty_error.visibility=View.VISIBLE
                     return
                 }
                 adapter.setOnItemClickListener { item, view ->

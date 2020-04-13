@@ -18,7 +18,6 @@ import com.vincentzhangz.maverickcount.utilities.UserUtil
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_history_borrow.view.*
-import kotlinx.android.synthetic.main.activity_ongoing_borrow.view.*
 
 class HistoryBorrow : Fragment() {
 
@@ -31,6 +30,8 @@ class HistoryBorrow : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.activity_history_borrow, container, false)
+        rootView.empty_error.visibility=View.VISIBLE
+        rootView.recyclerview_history_borrow.visibility=View.GONE
         userId = UserUtil.getUserId(this.activity!!.applicationContext)
         rootView.recyclerview_history_borrow.layoutManager = LinearLayoutManager(activity)
         fetchHistoryBorrow(rootView)
@@ -46,6 +47,7 @@ class HistoryBorrow : Fragment() {
 
             override fun onDataChange(ds: DataSnapshot) {
                 val adapter = GroupAdapter<ViewHolder>()
+                var dataExists=false
                 ds.children.forEach {
                     val borrow = it.getValue(BorrowRequest::class.java)
                     val borrowData = borrow?.let { it1 ->
@@ -56,7 +58,12 @@ class HistoryBorrow : Fragment() {
                     } as BorrowRequestData
                     if (borrowData.borrowRequest.borrower==userId) {
                         adapter.add(BorrowItem(borrowData))
+                        dataExists=true
                     }
+                }
+                if(dataExists){
+                    view.empty_error.visibility=View.GONE
+                    view.recyclerview_history_borrow.visibility=View.VISIBLE
                 }
                 view.recyclerview_history_borrow.adapter = adapter
             }

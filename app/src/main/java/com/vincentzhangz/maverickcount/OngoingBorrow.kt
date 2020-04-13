@@ -32,6 +32,8 @@ class OngoingBorrow : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.activity_ongoing_borrow, container, false)
+        rootView.empty_error.visibility=View.VISIBLE
+        rootView.recyclerview_ongoing_borrow.visibility=View.GONE
         userId = UserUtil.getUserId(this.activity!!.applicationContext)
         rootView.recyclerview_ongoing_borrow.layoutManager = LinearLayoutManager(activity)
         fetchOngoingBorrow(rootView)
@@ -47,6 +49,7 @@ class OngoingBorrow : Fragment() {
 
             override fun onDataChange(ds: DataSnapshot) {
                 val adapter = GroupAdapter<ViewHolder>()
+                var dataExists=false
                 ds.children.forEach {
                     val borrow = it.getValue(BorrowRequest::class.java)
                     val borrowData = borrow?.let { it1 ->
@@ -57,7 +60,12 @@ class OngoingBorrow : Fragment() {
                     } as BorrowRequestData
                     if (borrowData.borrowRequest.borrower==userId) {
                         adapter.add(BorrowItem(borrowData))
+                        dataExists=true
                     }
+                }
+                if(dataExists){
+                    view.empty_error.visibility=View.GONE
+                    view.recyclerview_ongoing_borrow.visibility=View.VISIBLE
                 }
                 adapter.setOnItemClickListener { item, view ->
                     val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(view.context)
