@@ -3,6 +3,7 @@ package com.vincentzhangz.maverickcount
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -37,7 +38,17 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         login_button.setOnClickListener {
-            firebaseAuth()
+            var userEmail=email.text.toString()
+            var userPassword=password.text.toString()
+            if(userEmail==""){
+                Toast.makeText(applicationContext,"Email must be filled !", Toast.LENGTH_SHORT).show()
+            }
+            else if(userPassword==""){
+                Toast.makeText(applicationContext,"Password must be filled !", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                firebaseAuth()
+            }
         }
 
         goto_register.setOnClickListener {

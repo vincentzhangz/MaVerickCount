@@ -56,7 +56,7 @@ class ChatActivity : Fragment() {
                     val messages = it.getValue(MessageHead::class.java)
                     val data = messages as MessageHead
                     if (data.user1 == userId || data.user2 == userId) {
-                        adapter.add(MessageHeader(it.key.toString(),messages))
+                        adapter.add(MessageHeader(it.key.toString(),messages,userId))
                         dataExists=true
                     }
                 }

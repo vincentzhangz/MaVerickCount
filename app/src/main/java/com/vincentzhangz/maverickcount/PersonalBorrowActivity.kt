@@ -17,6 +17,7 @@ import com.vincentzhangz.maverickcount.models.BorrowItem
 import com.vincentzhangz.maverickcount.models.BorrowRequest
 import com.vincentzhangz.maverickcount.models.BorrowRequestData
 import com.vincentzhangz.maverickcount.models.MessageHead
+import com.vincentzhangz.maverickcount.utilities.OtherUtil
 import com.vincentzhangz.maverickcount.utilities.SystemUtility
 import com.vincentzhangz.maverickcount.utilities.UserUtil
 import com.xwray.groupie.GroupAdapter
@@ -103,16 +104,29 @@ class PersonalBorrowActivity : Fragment() {
                                                         borrowData.deadlineDate
                                                     )
                                                 )
+                                            database.getReference("users").child(borrowData.borrower).child("balance")
+                                                .addListenerForSingleValueEvent(object:ValueEventListener{
+                                                    override fun onCancelled(p0: DatabaseError) {
+                                                        TODO("Not yet implemented")
+                                                    }
+
+                                                    override fun onDataChange(ds: DataSnapshot) {
+                                                        val currBalance=ds.getValue(Int::class.java) as Int
+                                                        var newBalance=currBalance+borrowData.amount
+                                                        database.getReference("users").child(borrowData.borrower)
+                                                            .child("balance").setValue(newBalance)
+                                                    }
+
+                                                })
+
                                             database.getReference("borrow-request")
                                                 .child(data.borrowData.uid)
                                                 .removeValue()
-                                            database.getReference("chats").push()
-                                                .setValue(
-                                                    MessageHead(
-                                                        borrowData.borrower,
-                                                        borrowData.lender
-                                                    )
-                                                )
+//                                            database.getReference("chats").push()
+//                                                .setValue(MessageHead(borrowData.borrower, borrowData.lender))
+                                            OtherUtil.createNewChat(MessageHead(borrowData.borrower, borrowData.lender))
+
+                                            OtherUtil.updateUnpaid(borrowData.borrower)
                                         } else {
                                             SystemUtility.toast(context!!, "Not enough Balance")
                                         }

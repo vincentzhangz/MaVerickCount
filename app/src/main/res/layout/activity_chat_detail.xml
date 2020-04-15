@@ -7,6 +7,14 @@
     android:orientation="vertical"
     tools:context=".ChatDetailActivity">
 
+    <TextView
+        android:id="@+id/chat_detail_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Friend Name"
+        android:padding="8dp"
+        android:background="@color/colorPrimary"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_chat_detail"
         android:layout_width="match_parent"

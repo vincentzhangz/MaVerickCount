@@ -17,6 +17,7 @@ import com.vincentzhangz.maverickcount.models.BorrowItem
 import com.vincentzhangz.maverickcount.models.BorrowRequest
 import com.vincentzhangz.maverickcount.models.BorrowRequestData
 import com.vincentzhangz.maverickcount.models.MessageHead
+import com.vincentzhangz.maverickcount.utilities.OtherUtil
 import com.vincentzhangz.maverickcount.utilities.UserUtil
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
@@ -91,8 +92,12 @@ class LenderRequestActivity : Fragment() {
                                 )
                             database.getReference("lend-request").child(data.borrowData.uid)
                                 .removeValue()
-                            database.getReference("chats").push()
-                                .setValue(MessageHead(borrowData.borrower, borrowData.lender))
+//                            database.getReference("chats").push()
+//                                .setValue(MessageHead(borrowData.borrower, borrowData.lender))
+                            OtherUtil.createNewChat(MessageHead(borrowData.borrower, borrowData.lender))
+
+                            OtherUtil.updateUnpaid(borrowData.borrower)
+
                             database.getReference("users").child(userId).child("balance")
                                 .addListenerForSingleValueEvent(object : ValueEventListener {
                                     override fun onCancelled(p0: DatabaseError) {

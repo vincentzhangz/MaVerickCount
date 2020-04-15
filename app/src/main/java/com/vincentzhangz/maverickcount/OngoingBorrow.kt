@@ -111,6 +111,9 @@ class OngoingBorrow : Fragment() {
                                                     val newStatus:Int=data.paid+1
                                                     database.getReference("users").child(userId).child("status")
                                                         .child("paid").setValue(newStatus)
+                                                    val newUnpaid:Int=data.unpaid-1
+                                                    database.getReference("users").child(userId).child("status")
+                                                        .child("unpaid").setValue(newUnpaid)
                                                 }
 
                                             })

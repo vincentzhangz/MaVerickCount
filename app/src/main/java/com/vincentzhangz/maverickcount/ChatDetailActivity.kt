@@ -68,6 +68,18 @@ class ChatDetailActivity : AppCompatActivity() {
             }
 
         })
+        database.getReference("users").child(friendId).child("name")
+            .addListenerForSingleValueEvent(object:ValueEventListener{
+                override fun onCancelled(p0: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onDataChange(ds: DataSnapshot) {
+                    val friendName=ds.getValue(String()::class.java)
+                    chat_detail_header.text=friendName
+                }
+
+            })
     }
 
     private fun fetchMessage() {
