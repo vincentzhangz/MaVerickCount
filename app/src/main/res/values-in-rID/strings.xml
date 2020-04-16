@@ -20,4 +20,13 @@
     <string name="balance">Saldo</string>
     <string name="lang">Bahasa</string>
     <string name="dark_mode">Mode Gelap</string>
+    <string name="no_data">Tidak ada data</string>
+    <string name="borrow_request">Permintaan Peminjaman</string>
+    <string name="borrow">Peminjaman</string>
+    <string name="pending_request">Permintaan Tertunda</string>
+    <string name="ongoing">Sedang Berjalan</string>
+    <string name="history">Riwayat</string>
+    <string name="request_borrow">Ajukan Peminjaman</string>
+    <string name="borrow_target">Target Peminjaman</string>
+    <string name="deadline">Tenggat Waktu</string>
 </resources>

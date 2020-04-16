@@ -20,5 +20,13 @@
     <string name="lang">Languages</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="no_data" >There is no data</string>
+    <string name="borrow_request">Borrow Request</string>
+    <string name="borrow">Borrow</string>
+    <string name="pending_request">Pending Request</string>
+    <string name="ongoing">Ongoing</string>
+    <string name="history">History</string>
+    <string name="request_borrow">Request Borrow</string>
+    <string name="borrow_target">"Borrow target "</string>
+    <string name="deadline">Deadline</string>
 
 </resources>

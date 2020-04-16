@@ -3,6 +3,7 @@ package com.vincentzhangz.maverickcount
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -30,6 +31,20 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun firebaseRegister() {
+        val userPass=password.text.toString()
+        val userEmail=email.text.toString()
+        if(userEmail==""){
+            toast(this,"Email must be filled")
+            return
+        }
+        else if(userPass==""){
+            toast(this,"Password must be filled")
+            return
+        }
+        else if(userPass.length<8){
+            toast(this,"Password min 8 chars")
+            return
+        }
 
         if (password.text.toString() == confirm_password.text.toString()) {
             auth.createUserWithEmailAndPassword(email.text.toString(), password.text.toString())
@@ -39,9 +54,10 @@ class RegisterActivity : AppCompatActivity() {
                         toast(this, user?.uid.toString())
                         val sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
                         sharedPreferences.edit().putString("userId", user?.uid).apply()
+                        val name=userEmail.split("@")
                         database.getReference("users").child(user!!.uid)
                             .setValue(
-                                user.email?.let { User(user.uid, it,0, Status(0,0,0), ArrayList()) }
+                                user.email?.let { User(user.uid, name[0],0, Status(0,0,0), ArrayList()) }
                             )
                         toast(this, "Register success.")
                         val intent = Intent(this, MainActivity::class.java)

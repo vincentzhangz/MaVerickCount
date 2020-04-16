@@ -6,19 +6,19 @@
         android:title="@string/home" />
     <item
         android:id="@+id/borrow_request_page"
-        android:title="Borrow Request" />
+        android:title="@string/borrow_request" />
     <item
         android:id="@+id/borrow_page"
-        android:title="Borrow" />
+        android:title="@string/borrow" />
     <item
         android:id="@+id/pending_request_page"
-        android:title="Pending Request" />
+        android:title="@string/pending_request" />
     <item
         android:id="@+id/ongoing_page"
-        android:title="Ongoing" />
+        android:title="@string/ongoing" />
     <item
         android:id="@+id/history_page"
-        android:title="History" />
+        android:title="@string/history" />
     <item
         android:id="@+id/chat"
         android:icon="@drawable/chat_icon_foreground"

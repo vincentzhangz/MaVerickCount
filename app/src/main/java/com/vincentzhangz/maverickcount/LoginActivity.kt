@@ -104,7 +104,7 @@ class LoginActivity : AppCompatActivity() {
                                             account.email?.let { it3 ->
                                                 User(
                                                     it2,
-                                                    it3, 0, Status(0, 0, 0), ArrayList()
+                                                    it3.split("@")[0], 0, Status(0, 0, 0), ArrayList()
                                                 )
                                             }
                                         }
