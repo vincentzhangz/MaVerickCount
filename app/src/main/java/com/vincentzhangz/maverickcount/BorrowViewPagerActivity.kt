@@ -17,8 +17,8 @@ class BorrowViewPagerActivity : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.activity_borrow_view_pager, container, false)
         val adapter = ViewPagerAdapter(childFragmentManager)
-        adapter.add(GlobalBorrowActivity(), "Global Borrow")
-        adapter.add(PersonalBorrowActivity(), "Personal Borrow")
+        adapter.add(GlobalBorrowActivity(), resources.getString(R.string.global_borrow))
+        adapter.add(PersonalBorrowActivity(), resources.getString(R.string.personal_borrow))
         rootView.borrow_view_pager.adapter = adapter
         rootView.borrow_tab.setupWithViewPager(rootView.borrow_view_pager)
         return rootView

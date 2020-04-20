@@ -30,8 +30,8 @@ class LendPendingActivity : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.activity_lend_pending, container, false)
-        rootView.recyclerview_pending_lend.visibility=View.VISIBLE
-        rootView.empty_error.visibility=View.GONE
+        rootView.recyclerview_pending_lend.visibility = View.VISIBLE
+        rootView.empty_error.visibility = View.GONE
         userId = UserUtil.getUserId(this.activity!!.applicationContext)
         rootView.recyclerview_pending_lend.layoutManager = LinearLayoutManager(activity)
         fetchLendPending(rootView)
@@ -56,14 +56,14 @@ class LendPendingActivity : Fragment() {
                             it1
                         )
                     } as BorrowRequestData
-                    if (borrowData.borrowRequest.lender==userId) {
+                    if (borrowData.borrowRequest.lender == userId) {
                         adapter.add(BorrowItem(borrowData))
                         dataExist = true
                     }
                 }
                 if (!dataExist) {
-                    view.recyclerview_pending_lend.visibility=View.GONE
-                    view.empty_error.visibility=View.VISIBLE
+                    view.recyclerview_pending_lend.visibility = View.GONE
+                    view.empty_error.visibility = View.VISIBLE
                     return
                 }
                 adapter.setOnItemClickListener { item, view ->
@@ -74,7 +74,7 @@ class LendPendingActivity : Fragment() {
                     dialogBuilder.setPositiveButton(
                         "Delete"
                     ) { dialog, which ->
-                        data.borrowData.borrowRequest.lender=""
+                        data.borrowData.borrowRequest.lender = ""
                         val borrowData = data.borrowData.borrowRequest
                         database.getReference("borrow-request").child(data.borrowData.uid)
                             .setValue(
@@ -88,7 +88,8 @@ class LendPendingActivity : Fragment() {
                             )
                         database.getReference("lend-request").child(data.borrowData.uid)
                             .removeValue()
-                        Toast.makeText(activity, "Success delete request", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "Success delete request", Toast.LENGTH_SHORT)
+                            .show()
                         reload()
                     }
                     dialogBuilder.setNegativeButton(
@@ -106,7 +107,7 @@ class LendPendingActivity : Fragment() {
         })
     }
 
-    private fun reload(){
+    private fun reload() {
         this.fragmentManager!!.beginTransaction().detach(this).attach(this).commit()
     }
 }

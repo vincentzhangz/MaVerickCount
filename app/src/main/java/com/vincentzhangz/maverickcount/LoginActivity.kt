@@ -38,15 +38,15 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         login_button.setOnClickListener {
-            var userEmail=email.text.toString()
-            var userPassword=password.text.toString()
-            if(userEmail==""){
-                Toast.makeText(applicationContext,"Email must be filled !", Toast.LENGTH_SHORT).show()
-            }
-            else if(userPassword==""){
-                Toast.makeText(applicationContext,"Password must be filled !", Toast.LENGTH_SHORT).show()
-            }
-            else{
+            var userEmail = email.text.toString()
+            var userPassword = password.text.toString()
+            if (userEmail == "") {
+                Toast.makeText(applicationContext, "Email must be filled !", Toast.LENGTH_SHORT)
+                    .show()
+            } else if (userPassword == "") {
+                Toast.makeText(applicationContext, "Password must be filled !", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
                 firebaseAuth()
             }
         }
@@ -104,7 +104,10 @@ class LoginActivity : AppCompatActivity() {
                                             account.email?.let { it3 ->
                                                 User(
                                                     it2,
-                                                    it3.split("@")[0], 0, Status(0, 0, 0), ArrayList()
+                                                    it3.split("@")[0],
+                                                    0,
+                                                    Status(0, 0, 0),
+                                                    ArrayList()
                                                 )
                                             }
                                         }

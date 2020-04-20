@@ -64,7 +64,8 @@ class MainActivity : AppCompatActivity() {
 
             override fun onDrawerOpened(drawerView: View) {
                 super.onDrawerOpened(drawerView)
-
+                val themeManager = ThemeManager(drawerView.context)
+                themeManager.loadTheme()
                 val storage = FirebaseStorage.getInstance()
                 val userId = UserUtil.getUserId(applicationContext)
                 val parsedUrl = _databaseUrlPrefix + "profile-image/$userId"

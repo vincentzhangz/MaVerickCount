@@ -33,8 +33,8 @@ class LenderRequestActivity : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.activity_lender_request, container, false)
-        rootView.recyclerview_lender_request.visibility=View.VISIBLE
-        rootView.empty_error.visibility=View.GONE
+        rootView.recyclerview_lender_request.visibility = View.VISIBLE
+        rootView.empty_error.visibility = View.GONE
         userId = UserUtil.getUserId(this.activity!!.applicationContext)
         rootView.recyclerview_lender_request.layoutManager = LinearLayoutManager(activity)
         fetchRequestData(rootView)
@@ -67,8 +67,8 @@ class LenderRequestActivity : Fragment() {
                 }
 
                 if (!dataExist) {
-                    view.recyclerview_lender_request.visibility=View.GONE
-                    view.empty_error.visibility=View.VISIBLE
+                    view.recyclerview_lender_request.visibility = View.GONE
+                    view.empty_error.visibility = View.VISIBLE
                     return
                 }
                 adapter.setOnItemClickListener { item, view ->
@@ -94,7 +94,12 @@ class LenderRequestActivity : Fragment() {
                                 .removeValue()
 //                            database.getReference("chats").push()
 //                                .setValue(MessageHead(borrowData.borrower, borrowData.lender))
-                            OtherUtil.createNewChat(MessageHead(borrowData.borrower, borrowData.lender))
+                            OtherUtil.createNewChat(
+                                MessageHead(
+                                    borrowData.borrower,
+                                    borrowData.lender
+                                )
+                            )
 
                             OtherUtil.updateUnpaid(borrowData.borrower)
 

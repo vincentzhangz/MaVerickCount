@@ -18,7 +18,6 @@ import com.vincentzhangz.maverickcount.models.BorrowRequest
 import com.vincentzhangz.maverickcount.models.Friend
 import com.vincentzhangz.maverickcount.utilities.SystemUtility.Companion.dateFormatter
 import com.vincentzhangz.maverickcount.utilities.UserUtil
-import kotlinx.android.synthetic.main.activity_borrow_request.*
 import kotlinx.android.synthetic.main.activity_borrow_request.view.*
 import java.time.LocalDateTime
 import java.time.ZoneOffset
@@ -112,13 +111,13 @@ class BorrowRequestActivity : Fragment() {
                     postOpt.add(friend!!.name)
                     friendList.add(friend)
                 }
-                addSpinner(postOpt,view)
+                addSpinner(postOpt, view)
             }
         })
 
     }
 
-    fun addSpinner(postOpt: ArrayList<String>,view: View) {
+    fun addSpinner(postOpt: ArrayList<String>, view: View) {
         val arrayAdapter = ArrayAdapter(
             this.activity!!.baseContext,
             R.layout.support_simple_spinner_dropdown_item,

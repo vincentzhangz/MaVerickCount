@@ -34,8 +34,8 @@ class PersonalBorrowActivity : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.activity_personal_borrow, container, false)
-        rootView.empty_error.visibility=View.VISIBLE
-        rootView.recyclerview_personal_borrow.visibility=View.GONE
+        rootView.empty_error.visibility = View.VISIBLE
+        rootView.recyclerview_personal_borrow.visibility = View.GONE
         userId = UserUtil.getUserId(this.activity!!.applicationContext)
         rootView.recyclerview_personal_borrow.layoutManager = LinearLayoutManager(activity)
         fetchBorrowData(rootView)
@@ -51,7 +51,7 @@ class PersonalBorrowActivity : Fragment() {
 
             override fun onDataChange(ds: DataSnapshot) {
                 val adapter = GroupAdapter<ViewHolder>()
-                var dataExists= false
+                var dataExists = false
 //                Log.d("borrow",ds.toString())
                 ds.children.forEach {
 //                    Log.d("borrow",it.key.toString())
@@ -64,12 +64,12 @@ class PersonalBorrowActivity : Fragment() {
                     } as BorrowRequestData
                     if (borrowData.borrowRequest.lender == userId) {
                         adapter.add(BorrowItem(borrowData))
-                        dataExists=true
+                        dataExists = true
                     }
                 }
-                if(dataExists){
-                    view.empty_error.visibility=View.GONE
-                    view.recyclerview_personal_borrow.visibility=View.VISIBLE
+                if (dataExists) {
+                    view.empty_error.visibility = View.GONE
+                    view.recyclerview_personal_borrow.visibility = View.VISIBLE
                 }
                 adapter.setOnItemClickListener { item, view ->
                     val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(view.context)
@@ -104,16 +104,21 @@ class PersonalBorrowActivity : Fragment() {
                                                         borrowData.deadlineDate
                                                     )
                                                 )
-                                            database.getReference("users").child(borrowData.borrower).child("balance")
-                                                .addListenerForSingleValueEvent(object:ValueEventListener{
+                                            database.getReference("users")
+                                                .child(borrowData.borrower).child("balance")
+                                                .addListenerForSingleValueEvent(object :
+                                                    ValueEventListener {
                                                     override fun onCancelled(p0: DatabaseError) {
                                                         TODO("Not yet implemented")
                                                     }
 
                                                     override fun onDataChange(ds: DataSnapshot) {
-                                                        val currBalance=ds.getValue(Int::class.java) as Int
-                                                        var newBalance=currBalance+borrowData.amount
-                                                        database.getReference("users").child(borrowData.borrower)
+                                                        val currBalance =
+                                                            ds.getValue(Int::class.java) as Int
+                                                        var newBalance =
+                                                            currBalance + borrowData.amount
+                                                        database.getReference("users")
+                                                            .child(borrowData.borrower)
                                                             .child("balance").setValue(newBalance)
                                                     }
 
@@ -124,7 +129,12 @@ class PersonalBorrowActivity : Fragment() {
                                                 .removeValue()
 //                                            database.getReference("chats").push()
 //                                                .setValue(MessageHead(borrowData.borrower, borrowData.lender))
-                                            OtherUtil.createNewChat(MessageHead(borrowData.borrower, borrowData.lender))
+                                            OtherUtil.createNewChat(
+                                                MessageHead(
+                                                    borrowData.borrower,
+                                                    borrowData.lender
+                                                )
+                                            )
 
                                             OtherUtil.updateUnpaid(borrowData.borrower)
                                         } else {

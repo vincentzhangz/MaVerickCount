@@ -1,6 +1,5 @@
 package com.vincentzhangz.maverickcount
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,13 +28,14 @@ class HistoryLend : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.activity_history_lend, container, false)
-        rootView.empty_error.visibility=View.VISIBLE
-        rootView.recyclerview_history_lend.visibility=View.GONE
+        rootView.empty_error.visibility = View.VISIBLE
+        rootView.recyclerview_history_lend.visibility = View.GONE
         userId = UserUtil.getUserId(this.activity!!.applicationContext)
         rootView.recyclerview_history_lend.layoutManager = LinearLayoutManager(activity)
         fetchHistoryLend(rootView)
         return rootView
     }
+
     private fun fetchHistoryLend(view: View) {
         val db = database.getReference("complete-borrow")
         db.addValueEventListener(object : ValueEventListener {
@@ -44,7 +44,7 @@ class HistoryLend : Fragment() {
             }
 
             override fun onDataChange(ds: DataSnapshot) {
-                var dataExists=false
+                var dataExists = false
                 val adapter = GroupAdapter<ViewHolder>()
                 ds.children.forEach {
                     val borrow = it.getValue(BorrowRequest::class.java)
@@ -54,14 +54,14 @@ class HistoryLend : Fragment() {
                             it1
                         )
                     } as BorrowRequestData
-                    if (borrowData.borrowRequest.lender==userId) {
+                    if (borrowData.borrowRequest.lender == userId) {
                         adapter.add(BorrowItem(borrowData))
-                        dataExists=true
+                        dataExists = true
                     }
                 }
-                if(dataExists){
-                    view.empty_error.visibility=View.GONE
-                    view.recyclerview_history_lend.visibility=View.VISIBLE
+                if (dataExists) {
+                    view.empty_error.visibility = View.GONE
+                    view.recyclerview_history_lend.visibility = View.VISIBLE
                 }
                 view.recyclerview_history_lend.adapter = adapter
             }
@@ -69,7 +69,7 @@ class HistoryLend : Fragment() {
         })
     }
 
-    private fun reload(){
+    private fun reload() {
         this.fragmentManager!!.beginTransaction().detach(this).attach(this).commit()
     }
 }

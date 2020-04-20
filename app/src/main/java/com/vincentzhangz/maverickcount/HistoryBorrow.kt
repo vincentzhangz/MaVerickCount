@@ -1,6 +1,5 @@
 package com.vincentzhangz.maverickcount
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,8 +29,8 @@ class HistoryBorrow : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.activity_history_borrow, container, false)
-        rootView.empty_error.visibility=View.VISIBLE
-        rootView.recyclerview_history_borrow.visibility=View.GONE
+        rootView.empty_error.visibility = View.VISIBLE
+        rootView.recyclerview_history_borrow.visibility = View.GONE
         userId = UserUtil.getUserId(this.activity!!.applicationContext)
         rootView.recyclerview_history_borrow.layoutManager = LinearLayoutManager(activity)
         fetchHistoryBorrow(rootView)
@@ -47,7 +46,7 @@ class HistoryBorrow : Fragment() {
 
             override fun onDataChange(ds: DataSnapshot) {
                 val adapter = GroupAdapter<ViewHolder>()
-                var dataExists=false
+                var dataExists = false
                 ds.children.forEach {
                     val borrow = it.getValue(BorrowRequest::class.java)
                     val borrowData = borrow?.let { it1 ->
@@ -56,14 +55,14 @@ class HistoryBorrow : Fragment() {
                             it1
                         )
                     } as BorrowRequestData
-                    if (borrowData.borrowRequest.borrower==userId) {
+                    if (borrowData.borrowRequest.borrower == userId) {
                         adapter.add(BorrowItem(borrowData))
-                        dataExists=true
+                        dataExists = true
                     }
                 }
-                if(dataExists){
-                    view.empty_error.visibility=View.GONE
-                    view.recyclerview_history_borrow.visibility=View.VISIBLE
+                if (dataExists) {
+                    view.empty_error.visibility = View.GONE
+                    view.recyclerview_history_borrow.visibility = View.VISIBLE
                 }
                 view.recyclerview_history_borrow.adapter = adapter
             }
@@ -71,7 +70,7 @@ class HistoryBorrow : Fragment() {
         })
     }
 
-    private fun reload(){
+    private fun reload() {
         this.fragmentManager!!.beginTransaction().detach(this).attach(this).commit()
     }
 

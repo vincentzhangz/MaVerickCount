@@ -19,14 +19,26 @@
     <string name="balance">Balance</string>
     <string name="lang">Languages</string>
     <string name="dark_mode">Dark Mode</string>
-    <string name="no_data" >There is no data</string>
+    <string name="no_data">There is no data</string>
     <string name="borrow_request">Borrow Request</string>
     <string name="borrow">Borrow</string>
+    <string name="lend">Lend</string>
     <string name="pending_request">Pending Request</string>
     <string name="ongoing">Ongoing</string>
     <string name="history">History</string>
     <string name="request_borrow">Request Borrow</string>
     <string name="borrow_target">"Borrow target "</string>
     <string name="deadline">Deadline</string>
+    <string name="global_request_handler">Global Request Handler</string>
+    <string name="global_borrow">Global Borrow</string>
+    <string name="personal_borrow">Personal Borrow</string>
+    <string name="friend_list">Friend List</string>
+    <string name="friend_search">Search Friend</string>
+    <string name="friend_request">Friend Request</string>
+    <string name="borrow_pending">Borrow Pending</string>
+    <string name="lend_pending">Lend Pending</string>
+    <string name="input_name">Input Name</string>
+    <string name="search">search</string>
+    <string name="borrow_amount">Borrow amount</string>
 
 </resources>

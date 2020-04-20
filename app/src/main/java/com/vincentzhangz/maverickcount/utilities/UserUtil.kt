@@ -57,22 +57,22 @@ class OtherUtil {
                 })
         }
 
-        fun createNewChat(msg: MessageHead){
+        fun createNewChat(msg: MessageHead) {
             FirebaseDatabase.getInstance().getReference("chats")
-                .addListenerForSingleValueEvent(object:ValueEventListener{
+                .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onCancelled(p0: DatabaseError) {
                         TODO("Not yet implemented")
                     }
 
                     override fun onDataChange(ds: DataSnapshot) {
-                        var newChat=true
+                        var newChat = true
                         ds.children.forEach {
-                            var data=it.getValue(MessageHead::class.java) as MessageHead
-                            if((data.user1==msg.user1||data.user1==msg.user2)&&(data.user2==msg.user1||data.user2==msg.user2)){
-                                newChat=false
+                            var data = it.getValue(MessageHead::class.java) as MessageHead
+                            if ((data.user1 == msg.user1 || data.user1 == msg.user2) && (data.user2 == msg.user1 || data.user2 == msg.user2)) {
+                                newChat = false
                             }
                         }
-                        if(newChat){
+                        if (newChat) {
                             FirebaseDatabase.getInstance().getReference("chats").push()
                                 .setValue(msg)
                         }
@@ -81,17 +81,19 @@ class OtherUtil {
                 })
         }
 
-        fun updateUnpaid(userId: String){
-            FirebaseDatabase.getInstance().getReference("users").child(userId).child("status").child("unpaid")
-                .addListenerForSingleValueEvent(object:ValueEventListener{
+        fun updateUnpaid(userId: String) {
+            FirebaseDatabase.getInstance().getReference("users").child(userId).child("status")
+                .child("unpaid")
+                .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onCancelled(p0: DatabaseError) {
                         TODO("Not yet implemented")
                     }
 
                     override fun onDataChange(ds: DataSnapshot) {
-                        val unpaid=ds.getValue(Int::class.java) as Int
-                        val newUnpaid=unpaid+1
-                        FirebaseDatabase.getInstance().getReference("users").child(userId).child("status").child("unpaid")
+                        val unpaid = ds.getValue(Int::class.java) as Int
+                        val newUnpaid = unpaid + 1
+                        FirebaseDatabase.getInstance().getReference("users").child(userId)
+                            .child("status").child("unpaid")
                             .setValue(newUnpaid)
                     }
 

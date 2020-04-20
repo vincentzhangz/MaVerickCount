@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor"
-    android:orientation="vertical"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".FriendRequestActivity">
 
     <EditText
@@ -13,23 +13,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="Input Name"
-        android:textColor="?attr/textColor" />
+        android:hint="@string/input_name"
+        android:textColor="?attr/textColor"
+        android:textColorHint="?attr/textColor" />
 
     <Button
         android:id="@+id/btn_search_friend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="search"
-        android:textColor="?attr/textColor" />
+        android:background="@drawable/button"
+        android:text="@string/search"
+        android:textColor="?attr/buttonTextColor" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_search_friend"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/backgroundColor" />
-
 
 
 </LinearLayout>

@@ -27,14 +27,4 @@
         android:text="@string/dark_mode"
         android:textColor="?attr/textColor" />
 
-    <Spinner
-        android:id="@+id/language"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginVertical="15dp"
-        android:background="?attr/backgroundColor"
-        android:prompt="@string/lang"
-        android:textColor="?attr/textColor" />
-
 </LinearLayout>

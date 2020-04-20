@@ -2,7 +2,6 @@ package com.vincentzhangz.maverickcount
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,8 +31,8 @@ class OngoingBorrow : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.activity_ongoing_borrow, container, false)
-        rootView.empty_error.visibility=View.VISIBLE
-        rootView.recyclerview_ongoing_borrow.visibility=View.GONE
+        rootView.empty_error.visibility = View.VISIBLE
+        rootView.recyclerview_ongoing_borrow.visibility = View.GONE
         userId = UserUtil.getUserId(this.activity!!.applicationContext)
         rootView.recyclerview_ongoing_borrow.layoutManager = LinearLayoutManager(activity)
         fetchOngoingBorrow(rootView)
@@ -49,7 +48,7 @@ class OngoingBorrow : Fragment() {
 
             override fun onDataChange(ds: DataSnapshot) {
                 val adapter = GroupAdapter<ViewHolder>()
-                var dataExists=false
+                var dataExists = false
                 ds.children.forEach {
                     val borrow = it.getValue(BorrowRequest::class.java)
                     val borrowData = borrow?.let { it1 ->
@@ -58,14 +57,14 @@ class OngoingBorrow : Fragment() {
                             it1
                         )
                     } as BorrowRequestData
-                    if (borrowData.borrowRequest.borrower==userId) {
+                    if (borrowData.borrowRequest.borrower == userId) {
                         adapter.add(BorrowItem(borrowData))
-                        dataExists=true
+                        dataExists = true
                     }
                 }
-                if(dataExists){
-                    view.empty_error.visibility=View.GONE
-                    view.recyclerview_ongoing_borrow.visibility=View.VISIBLE
+                if (dataExists) {
+                    view.empty_error.visibility = View.GONE
+                    view.recyclerview_ongoing_borrow.visibility = View.VISIBLE
                 }
                 adapter.setOnItemClickListener { item, view ->
                     val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(view.context)
@@ -76,16 +75,17 @@ class OngoingBorrow : Fragment() {
                         "Pay"
                     ) { dialog, which ->
                         database.getReference("users").child(userId).child("balance")
-                            .addListenerForSingleValueEvent(object :ValueEventListener{
+                            .addListenerForSingleValueEvent(object : ValueEventListener {
                                 override fun onCancelled(p0: DatabaseError) {
                                     TODO("Not yet implemented")
                                 }
 
                                 override fun onDataChange(ds: DataSnapshot) {
-                                    val userBalance=ds.getValue(Int::class.java) as Int
+                                    val userBalance = ds.getValue(Int::class.java) as Int
                                     val borrowData = data.borrowData.borrowRequest
-                                    if(userBalance>=borrowData.amount){
-                                        database.getReference("complete-borrow").child(data.borrowData.uid)
+                                    if (userBalance >= borrowData.amount) {
+                                        database.getReference("complete-borrow")
+                                            .child(data.borrowData.uid)
                                             .setValue(
                                                 BorrowRequest(
                                                     borrowData.borrower,
@@ -97,46 +97,63 @@ class OngoingBorrow : Fragment() {
                                             )
                                         database.getReference("borrow").child(data.borrowData.uid)
                                             .removeValue()
-                                        val currBalance:Long=userBalance-borrowData.amount
-                                        database.getReference("users").child(userId).child("balance").setValue(currBalance)
+                                        val currBalance: Long = userBalance - borrowData.amount
+                                        database.getReference("users").child(userId)
+                                            .child("balance").setValue(currBalance)
 
                                         database.getReference("users").child(userId).child("status")
-                                            .addListenerForSingleValueEvent(object :ValueEventListener{
+                                            .addListenerForSingleValueEvent(object :
+                                                ValueEventListener {
                                                 override fun onCancelled(p0: DatabaseError) {
                                                     TODO("Not yet implemented")
                                                 }
 
                                                 override fun onDataChange(ds: DataSnapshot) {
-                                                    val data=ds.getValue(Status::class.java) as Status
-                                                    val newStatus:Int=data.paid+1
-                                                    database.getReference("users").child(userId).child("status")
+                                                    val data =
+                                                        ds.getValue(Status::class.java) as Status
+                                                    val newStatus: Int = data.paid + 1
+                                                    database.getReference("users").child(userId)
+                                                        .child("status")
                                                         .child("paid").setValue(newStatus)
-                                                    val newUnpaid:Int=data.unpaid-1
-                                                    database.getReference("users").child(userId).child("status")
+                                                    val newUnpaid: Int = data.unpaid - 1
+                                                    database.getReference("users").child(userId)
+                                                        .child("status")
                                                         .child("unpaid").setValue(newUnpaid)
                                                 }
 
                                             })
-                                        database.getReference("users").child(borrowData.lender).child("balance")
-                                            .addListenerForSingleValueEvent(object :ValueEventListener{
+                                        database.getReference("users").child(borrowData.lender)
+                                            .child("balance")
+                                            .addListenerForSingleValueEvent(object :
+                                                ValueEventListener {
                                                 override fun onCancelled(p0: DatabaseError) {
                                                     TODO("Not yet implemented")
                                                 }
 
                                                 override fun onDataChange(ds: DataSnapshot) {
-                                                    val balance=ds.getValue(Int::class.java) as Int
-                                                    val newBalance: Long =balance+borrowData.amount
-                                                    database.getReference("users").child(borrowData.lender)
+                                                    val balance =
+                                                        ds.getValue(Int::class.java) as Int
+                                                    val newBalance: Long =
+                                                        balance + borrowData.amount
+                                                    database.getReference("users")
+                                                        .child(borrowData.lender)
                                                         .child("balance").setValue(newBalance)
                                                 }
 
                                             })
 
-                                        Toast.makeText(activity, "Success delete request", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(
+                                            activity,
+                                            "Success delete request",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                         reload()
-                                    }
-                                    else{
-                                        Toast.makeText(context!!.applicationContext,"Insufficient Balance, Please TopUp your balance",Toast.LENGTH_SHORT).show()
+                                    } else {
+                                        Toast.makeText(
+                                            context!!.applicationContext,
+                                            "Insufficient Balance, Please TopUp your balance",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                     }
 
                                 }
@@ -159,7 +176,7 @@ class OngoingBorrow : Fragment() {
         })
     }
 
-    private fun reload(){
+    private fun reload() {
         this.fragmentManager!!.beginTransaction().detach(this).attach(this).commit()
     }
 

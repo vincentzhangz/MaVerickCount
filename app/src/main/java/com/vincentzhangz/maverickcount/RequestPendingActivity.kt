@@ -15,11 +15,12 @@ class RequestPendingActivity : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.activity_borrow_request_view_pager, container, false)
-        val adapter= ViewPagerAdapter(childFragmentManager)
-        adapter.add(BorrowPendingActivity(),"Borrow Pending")
-        adapter.add(LendPendingActivity(),"Lend Pending")
-        rootView.borrow_request_view_pager.adapter=adapter
+        val rootView =
+            inflater.inflate(R.layout.activity_borrow_request_view_pager, container, false)
+        val adapter = ViewPagerAdapter(childFragmentManager)
+        adapter.add(BorrowPendingActivity(), resources.getString(R.string.borrow_pending))
+        adapter.add(LendPendingActivity(), resources.getString(R.string.lend_pending))
+        rootView.borrow_request_view_pager.adapter = adapter
         rootView.borrow_request_tab.setupWithViewPager(rootView.borrow_request_view_pager)
         return rootView
     }

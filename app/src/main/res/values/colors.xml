@@ -22,4 +22,6 @@
     <color name="late">#870000</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+    <color name="buttonDay">#CDCDCD</color>
+    <color name="buttonDark">#515151</color>
 </resources>

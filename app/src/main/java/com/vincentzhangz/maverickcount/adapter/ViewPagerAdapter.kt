@@ -3,9 +3,9 @@ package com.vincentzhangz.maverickcount.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import java.util.ArrayList
+import java.util.*
 
-class ViewPagerAdapter(val manager: FragmentManager): FragmentPagerAdapter(manager){
+class ViewPagerAdapter(val manager: FragmentManager) : FragmentPagerAdapter(manager) {
     private val fragmentList: ArrayList<Fragment> = ArrayList()
     private val titleList: ArrayList<String> = ArrayList()
     override fun getItem(position: Int): Fragment {
@@ -20,7 +20,7 @@ class ViewPagerAdapter(val manager: FragmentManager): FragmentPagerAdapter(manag
         return titleList[position]
     }
 
-    fun add(fragment: Fragment, title:String){
+    fun add(fragment: Fragment, title: String) {
         fragmentList.add(fragment)
         titleList.add(title)
     }

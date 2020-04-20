@@ -28,5 +28,17 @@
     <string name="history">Riwayat</string>
     <string name="request_borrow">Ajukan Peminjaman</string>
     <string name="borrow_target">Target Peminjaman</string>
-    <string name="deadline">Tenggat Waktu</string>
+    <string name="deadline">Tenggang Waktu</string>
+    <string name="global_request_handler">Global Handler Pinjaman</string>
+    <string name="global_borrow">Pinjaman Global</string>
+    <string name="personal_borrow">Pinjaman Pribadi</string>
+    <string name="friend_list">Daftar Teman</string>
+    <string name="friend_search">Cari Teman</string>
+    <string name="friend_request">Request Teman</string>
+    <string name="lend">Meminjamkan</string>
+    <string name="borrow_pending">Pinjaman Tertunda</string>
+    <string name="lend_pending">Peminjaman Tertunda</string>
+    <string name="input_name">Masukkan Nama</string>
+    <string name="search">cari</string>
+    <string name="borrow_amount">Jumlah Pinjaman</string>
 </resources>

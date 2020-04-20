@@ -43,11 +43,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
+        android:background="@drawable/button"
         android:text="@string/login_button"
-        android:textColor="?attr/textColor"
+        android:textColor="?attr/buttonTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password"
-
         app:layout_constraintVertical_bias="0.05"
         tools:layout_editor_absoluteX="16dp" />
 

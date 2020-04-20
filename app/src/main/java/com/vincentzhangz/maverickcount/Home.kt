@@ -38,8 +38,8 @@ class Home : Fragment() {
             val builder: AlertDialog.Builder = AlertDialog.Builder(rootView.context)
             builder.setTitle("Top Up")
             val input = EditText(rootView.context)
-            input.hint="Input Balance"
-            input.setPadding(60,32,32,32)
+            input.hint = "Input Balance"
+            input.setPadding(60, 32, 32, 32)
             input.setBackgroundColor(Color.TRANSPARENT)
             input.inputType = InputType.TYPE_CLASS_NUMBER
             builder.setView(input)

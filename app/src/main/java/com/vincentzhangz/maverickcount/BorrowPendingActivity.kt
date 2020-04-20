@@ -1,7 +1,6 @@
 package com.vincentzhangz.maverickcount
 
 import android.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,7 +30,7 @@ class BorrowPendingActivity : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.activity_borrow_pending, container, false)
-        rootView.empty_error.visibility=View.GONE
+        rootView.empty_error.visibility = View.GONE
         userId = UserUtil.getUserId(this.activity!!.applicationContext)
         rootView.recyclerview_pending_borrow.layoutManager = LinearLayoutManager(activity)
         fetchBorrowPending(rootView)
@@ -56,14 +55,14 @@ class BorrowPendingActivity : Fragment() {
                             it1
                         )
                     } as BorrowRequestData
-                    if (borrowData.borrowRequest.borrower==userId) {
+                    if (borrowData.borrowRequest.borrower == userId) {
                         adapter.add(BorrowItem(borrowData))
                         dataExist = true
                     }
                 }
                 if (!dataExist) {
-                    view.recyclerview_pending_borrow.visibility=View.GONE
-                    view.empty_error.visibility=View.VISIBLE
+                    view.recyclerview_pending_borrow.visibility = View.GONE
+                    view.empty_error.visibility = View.VISIBLE
                     return
                 }
                 adapter.setOnItemClickListener { item, view ->
@@ -77,7 +76,8 @@ class BorrowPendingActivity : Fragment() {
                         val borrowData = data.borrowData.borrowRequest
                         database.getReference("borrow-request").child(data.borrowData.uid)
                             .removeValue()
-                        Toast.makeText(activity, "Success delete request", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "Success delete request", Toast.LENGTH_SHORT)
+                            .show()
                         reload()
                     }
                     dialogBuilder.setNegativeButton(
@@ -95,7 +95,7 @@ class BorrowPendingActivity : Fragment() {
         })
     }
 
-    private fun reload(){
+    private fun reload() {
         this.fragmentManager!!.beginTransaction().detach(this).attach(this).commit()
     }
 

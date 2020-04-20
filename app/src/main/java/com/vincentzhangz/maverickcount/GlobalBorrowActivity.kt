@@ -29,8 +29,8 @@ class GlobalBorrowActivity : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.activity_global_borrow, container, false)
-        rootView.empty_error.visibility=View.GONE
-        rootView.recyclerview_global_borrow.visibility=View.VISIBLE
+        rootView.empty_error.visibility = View.GONE
+        rootView.recyclerview_global_borrow.visibility = View.VISIBLE
         userId = UserUtil.getUserId(this.activity!!.applicationContext)
         rootView.recyclerview_global_borrow.layoutManager = LinearLayoutManager(activity)
         fetchBorrowData(rootView)
@@ -61,8 +61,8 @@ class GlobalBorrowActivity : Fragment() {
                     }
                 }
                 if (!dataExist) {
-                    view.empty_error.visibility=View.VISIBLE
-                    view.recyclerview_global_borrow.visibility=View.GONE
+                    view.empty_error.visibility = View.VISIBLE
+                    view.recyclerview_global_borrow.visibility = View.GONE
                     return
                 }
                 adapter.setOnItemClickListener { item, view ->
