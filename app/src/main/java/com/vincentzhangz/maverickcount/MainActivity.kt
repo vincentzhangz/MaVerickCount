@@ -2,7 +2,10 @@ package com.vincentzhangz.maverickcount
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -64,21 +67,60 @@ class MainActivity : AppCompatActivity() {
 
             override fun onDrawerOpened(drawerView: View) {
                 super.onDrawerOpened(drawerView)
-                val themeManager = ThemeManager(drawerView.context)
-                themeManager.loadTheme()
+                val tm = ThemeManager(drawerView.context)
+                val theme = tm.loadTheme()
+                Log.d("Theme", "Here")
+
+                if (theme) {
+                    navigationView.setBackgroundColor(Color.BLACK);
+                    val states = arrayOf(
+                        intArrayOf(android.R.attr.state_enabled),
+                        intArrayOf(-android.R.attr.state_enabled),
+                        intArrayOf(-android.R.attr.state_checked),
+                        intArrayOf(android.R.attr.state_pressed)
+                    )
+
+                    val colors = intArrayOf(
+                        Color.WHITE,
+                        Color.WHITE,
+                        Color.WHITE,
+                        Color.WHITE
+                    )
+
+                    val myList = ColorStateList(states, colors)
+                    navigationView.itemTextColor = myList;
+                } else {
+                    navigationView.setBackgroundColor(Color.WHITE);
+                    val states = arrayOf(
+                        intArrayOf(android.R.attr.state_enabled),
+                        intArrayOf(-android.R.attr.state_enabled),
+                        intArrayOf(-android.R.attr.state_checked),
+                        intArrayOf(android.R.attr.state_pressed)
+                    )
+
+                    val colors = intArrayOf(
+                        Color.BLACK,
+                        Color.BLACK,
+                        Color.BLACK,
+                        Color.BLACK
+                    )
+
+                    val myList = ColorStateList(states, colors)
+                    navigationView.itemTextColor = myList;
+                }
+
                 val storage = FirebaseStorage.getInstance()
                 val userId = UserUtil.getUserId(applicationContext)
                 val parsedUrl = _databaseUrlPrefix + "profile-image/$userId"
-                val gsReference =
-                    storage.getReferenceFromUrl(parsedUrl).downloadUrl.addOnSuccessListener {
-                        Glide.with(header_profile).load(it).circleCrop()
-                            .into(header_profile.profile_image)
-                    }.addOnFailureListener {
-                        Glide.with(header_profile)
-                            .load(R.drawable.person_icon_foreground)
-                            .circleCrop()
-                            .into(header_profile.profile_image)
-                    }
+                storage.getReferenceFromUrl(parsedUrl).downloadUrl.addOnSuccessListener {
+                    Glide.with(header_profile).load(it).circleCrop()
+                        .into(header_profile.profile_image)
+                }.addOnFailureListener {
+                    Glide.with(header_profile)
+                        .load(R.drawable.person_icon_foreground)
+                        .circleCrop()
+                        .into(header_profile.profile_image)
+                }
 
                 header_profile.setOnClickListener {
                     supportFragmentManager.beginTransaction()

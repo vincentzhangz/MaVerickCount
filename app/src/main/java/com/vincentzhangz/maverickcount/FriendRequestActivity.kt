@@ -2,9 +2,11 @@ package com.vincentzhangz.maverickcount
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.DataSnapshot
@@ -15,6 +17,8 @@ import com.vincentzhangz.maverickcount.models.Friend
 import com.vincentzhangz.maverickcount.models.FriendRequest
 import com.vincentzhangz.maverickcount.models.FriendSearch
 import com.vincentzhangz.maverickcount.models.UserData
+import com.vincentzhangz.maverickcount.utilities.SystemUtility
+import com.vincentzhangz.maverickcount.utilities.SystemUtility.Companion.toast
 import com.vincentzhangz.maverickcount.utilities.UserUtil
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
@@ -78,13 +82,27 @@ class FriendRequestActivity : Fragment() {
 
                 override fun onDataChange(ds: DataSnapshot) {
                     val adapter = GroupAdapter<ViewHolder>()
+
+                    var count = 0;
+                    var added = false;
+
                     ds.children.forEach {
-//                        Log.d("userData",it.toString())
                         val data = it.getValue(UserData::class.java) as UserData
+                        if (data.name == friendName) {
+                            added = true;
+                        }
                         if (data.uid != userId && data.name == friendName && checkFriend(data.uid)) {
                             adapter.add(FriendSearch(data))
+                            count++;
                         }
                     }
+                    if (count <= 0 && !added) {
+                        toast(view.context, "User not found")
+                    } else if (count <= 0 && added) {
+                        toast(view.context, "User already friend")
+                    }
+
+
                     view.recyclerview_search_friend.adapter = adapter
 
                     adapter.setOnItemClickListener { item, view ->
@@ -95,6 +113,7 @@ class FriendRequestActivity : Fragment() {
                         dialogBuilder.setPositiveButton(
                             "Request"
                         ) { dialog, which ->
+
                             database.getReference("friend-request").push().setValue(
                                 FriendRequest(
                                     userId,

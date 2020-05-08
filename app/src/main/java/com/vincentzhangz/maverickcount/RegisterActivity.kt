@@ -68,7 +68,7 @@ class RegisterActivity : AppCompatActivity() {
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     } else {
-                        toast(this, "Register failed.")
+                        toast(this, "Email already registered.")
                     }
                 }
         } else {

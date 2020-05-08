@@ -82,6 +82,10 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
+
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>?) {
         try {
             val account = completedTask!!.getResult(ApiException::class.java)

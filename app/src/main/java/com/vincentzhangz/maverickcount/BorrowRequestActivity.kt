@@ -110,6 +110,7 @@ class BorrowRequestActivity : Fragment() {
 //                    Log.d("friend",friend!!.uid+" "+friend!!.name)
                     postOpt.add(friend!!.name)
                     friendList.add(friend)
+
                 }
                 addSpinner(postOpt, view)
             }

@@ -2,6 +2,7 @@ package com.vincentzhangz.maverickcount
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -123,25 +124,35 @@ class GlobalBorrowActivity : Fragment() {
                     dialog.setTitle("Loan Confirmation")
                     dialog.show()
                     dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener {
-                        val borrowerId = data.borrowData.borrowRequest.borrower
-                        database.getReference("users").child(borrowerId).child("status")
-                            .addValueEventListener(object : ValueEventListener {
-                                override fun onCancelled(p0: DatabaseError) {
-                                    TODO("Not yet implemented")
-                                }
 
-                                override fun onDataChange(ds: DataSnapshot) {
-                                    val status = ds.getValue(Status::class.java) as Status
-                                    val msg =
-                                        "Paid : " + status.paid + "\nUnpaid : " + status.unpaid + "\nLate : " + status.late
-                                    dialog.setMessage(msg)
-                                    Toast.makeText(
-                                        context!!.applicationContext,
-                                        msg,
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                            })
+                        val borrowerId = data.borrowData.borrowRequest.borrower
+                        val bundle = Bundle()
+                        bundle.putString("uid", data.borrowData.borrowRequest.borrower)
+                        val friendProfile = FriendProfile()
+                        friendProfile.arguments = bundle
+
+                        activity!!.supportFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container, friendProfile)
+                            .addToBackStack(null).commit()
+                        dialog.dismiss()
+//                        database.getReference("users").child(borrowerId).child("status")
+//                            .addValueEventListener(object : ValueEventListener {
+//                                override fun onCancelled(p0: DatabaseError) {
+//                                    TODO("Not yet implemented")
+//                                }
+//
+//                                override fun onDataChange(ds: DataSnapshot) {
+//                                    val status = ds.getValue(Status::class.java) as Status
+//                                    val msg =
+//                                        "Paid : " + status.paid + "\nUnpaid : " + status.unpaid + "\nLate : " + status.late
+//                                    dialog.setMessage(msg)
+//                                    Toast.makeText(
+//                                        context!!.applicationContext,
+//                                        msg,
+//                                        Toast.LENGTH_SHORT
+//                                    ).show()
+//                                }
+//                            })
                     }
                 }
                 view.recyclerview_global_borrow.adapter = adapter

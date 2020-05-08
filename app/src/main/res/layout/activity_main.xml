@@ -35,7 +35,6 @@
         android:layout_gravity="start"
         android:background="?attr/backgroundColor"
         app:headerLayout="@layout/header"
-        app:itemIconTint="?attr/textColor"
         app:itemTextColor="?attr/textColor"
         app:menu="@menu/menu_item" />
 

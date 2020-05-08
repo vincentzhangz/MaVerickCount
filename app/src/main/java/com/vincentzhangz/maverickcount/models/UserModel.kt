@@ -33,6 +33,8 @@ class UserData(
     val status: Status,
     val friends: HashMap<String, Friend>
 ) {
+
+
     constructor() : this("", "", 0, Status(), HashMap())
 }
 
